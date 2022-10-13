@@ -1,6 +1,7 @@
 # lifegame-styleoverflow
-QUE ONDAAAAAAA by Drope (Pedro Miguel)
-buenass (lauti)
-aloo (male)
-bchgch
-holaa(pedrop)
+Ya pude entrar al repo:
+	pedrom
+	lauti
+	male
+	pedrop
+	
