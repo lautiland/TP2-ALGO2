@@ -5,7 +5,7 @@
  *      Author: algo2
  */
 
-#include "Gen.h"
+#include "gen.h"
 
 Gen::Gen(unsigned int maximoDeCargaGenetica) {
 	verificar(maximoDeCargaGenetica, 0);
