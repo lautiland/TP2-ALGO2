@@ -1,17 +1,16 @@
-
 #include "celda.h"
 
-Celda::Celda(int posicionX = 0, int posicionY = 0, int posicionZ = 0, Tipo tipo = estandar, Celula celula  
+//  Constructores
 
-    // = no se que poner
-
-                                        ){
+Celda::Celda(unsigned int posicionX = 0, unsigned int posicionY = 0, unsigned int posicionZ = 0, Tipo tipo = estandar, Celula celula){
     setPosicionX(posicionX);
     setPosicionY(posicionY);
     setPosicionZ(posicionZ);
     setTipo(tipo);
     setCelula(celula);
 }
+
+//  Getters
 
 unsigned int Celda::getPosicionX(){
     return posicionX;
@@ -28,6 +27,8 @@ Tipo Celda::getTipo(){
 Celula Celda::getCelula(){
     return celula;
 }
+
+//  Setters
 
 void Celda::setPosicionX(unsigned int nuevaPosicionX = 0){
     this->posicionX = nuevaPosicionX;
@@ -46,9 +47,15 @@ void Celda::setCelula(Celula nuevaCelula
     // = no se que poner
 
                                         ){
-    this->celula.setEstado(nuevaCelula.getEstado());
-    this->celula.setGen1(nuevaCelula.getGen1());
-    this->celula.setGen2(nuevaCelula.getGen2());
-    this->celula.setGen3(nuevaCelula.getGen3());
+    this->celula = nuevaCelula;          //uso la funcion del operador asignacion
 }
 
+//  Funciones
+
+void Celda::operator=(Celda nuevaCelda){           //esta funcion permite igualar dos celdas y que se copien sus datos
+    setPosicionX(nuevaCelda.getPosicionX());
+    setPosicionY(nuevaCelda.getPosicionY());
+    setPosicionZ(nuevaCelda.getPosicionZ());
+    setTipo(nuevaCelda.getTipo());
+    setCelula(nuevaCelda.getCelula());
+}

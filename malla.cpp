@@ -1,31 +1,8 @@
-
 #include "malla.h"
 
-Celda ** Malla::getCursor(){ //devuelve un int xd;
-    Celda ** pcursor;
-    pcursor = &cursor;
-    return pcursor;
-}
+//  Constructores
 
-Dimension Malla::getEspacio(){
-    return espacio;
-}
-
-void Malla::setEspacio(unsigned int nuevoLargo, unsigned int nuevoAlto, unsigned int nuevoAncho){
-    espacio.setAlto(nuevoAlto);
-    espacio.setLargo(nuevoLargo);
-    espacio.setAncho(nuevoAncho);
-}
-
-void Malla::setCursor(unsigned int nuevoCursor){
-    this->cursor = nuevoCursor;
-}
-
-void Malla::setCursor(unsigned int nuevoLargo, unsigned int nuevoAlto, unsigned int nuevoAncho){
-    this->cursor = ((z * getAlto() * getLargo()) + (y * getLargo()) + x);
-}
-
-void Malla::Malla(){
+Malla::Malla(){
 
 
     *getCursor() = new Celda[getEspacio().getMaximo()];
@@ -46,4 +23,30 @@ void Malla::Malla(){
         }
     }
 
+}
+
+
+//  Getters
+
+Dimension Malla::getEspacio(){
+    return espacio;
+}
+Celda ** Malla::getCursor(){ //devuelve un int xd;
+    Celda ** pcursor;
+    pcursor = &cursor;
+    return pcursor;
+}
+
+//  Setters
+
+void Malla::setEspacio(unsigned int nuevoLargo, unsigned int nuevoAlto, unsigned int nuevoAncho){
+    espacio.setAlto(nuevoAlto);
+    espacio.setLargo(nuevoLargo);
+    espacio.setAncho(nuevoAncho);
+}
+void Malla::setCursor(unsigned int nuevoCursor){
+    this->cursor = nuevoCursor;
+}
+void Malla::setCursor(unsigned int nuevoLargo, unsigned int nuevoAlto, unsigned int nuevoAncho){
+    this->cursor = ((z * getAlto() * getLargo()) + (y * getLargo()) + x);
 }

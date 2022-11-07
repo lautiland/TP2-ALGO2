@@ -7,23 +7,23 @@
 class Malla{
     private:
         Dimension espacio;
-        Celda * cursor;  // 1 2 3 -> 45(?
+        Celda * cursor;
 
     public:
     //  Constructores
-        void crearMalla();
+        Malla();
+
+    //  Getters
+        Celda ** getCursor();       //devuelve resultado
+        Dimension getEspacio();
 
     //  Setters
         void setEspacio(unsigned int nuevoLargo, unsigned int nuevoAlto, unsigned int nuevoAncho);
         void setCursor(unsigned int nuevoCursor);//calculo
         void setCursor(unsigned int nuevoLargo, unsigned int nuevoAlto, unsigned int nuevoAncho);//calculo
 
-    //  Getters
-        Celda ** getCursor();//devuelve resultado
-        Dimension getEspacio();
-
     //  Funciones
-        void aniadirCelula(celula newCelula);
+        void agregarCelula(Celula newCelula);
 
 };
 

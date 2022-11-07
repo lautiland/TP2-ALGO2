@@ -22,7 +22,6 @@ class Celda{
         
     public:
     //  Constructores
-        Celda();
         Celda(unsigned int posicionX, unsigned int posicionY, unsigned int posicionZ, Tipo tipo, Celula celula);
 
     //  Getters
@@ -40,7 +39,7 @@ class Celda{
         void setCelula(Celula nuevaCelula);
 
     //  Funciones
-    //...
+        void operator=(Celda nuevaCelda);       //esta funcion permite igualar dos celdas y que se copien sus datos
 };
 
 #endif
