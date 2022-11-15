@@ -2,12 +2,12 @@
 
 //  Constructores
 
-Celda::Celda(unsigned int posicionX = 0, unsigned int posicionY = 0, unsigned int posicionZ = 0, Tipo tipo = estandar, Celula celula){
+Celda::Celda(unsigned int posicionX = 0, unsigned int posicionY = 0, unsigned int posicionZ = 0, Tipo tipo = estandar){
     setPosicionX(posicionX);
     setPosicionY(posicionY);
     setPosicionZ(posicionZ);
     setTipo(tipo);
-    setCelula(celula);
+    setCelula(Celula());
 }
 
 //  Getters
@@ -24,7 +24,7 @@ unsigned int Celda::getPosicionZ(){
 Tipo Celda::getTipo(){
     return tipo;
 }
-Celula Celda::getCelula(){
+Celula* Celda::getCelula(){
     return celula;
 }
 
@@ -42,12 +42,8 @@ void Celda::setPosicionZ(unsigned int nuevaPosicionZ = 0){
 void Celda::setTipo(Tipo nuevoTipo = estandar){
     this->tipo = nuevoTipo;
 }
-void Celda::setCelula(Celula nuevaCelula   
-
-    // = no se que poner
-
-                                        ){
-    this->celula = nuevaCelula;          //uso la funcion del operador asignacion
+void Celda::setCelula(Celula nuevaCelula ){
+    this->celula = &nuevaCelula;          //uso la funcion del operador asignacion
 }
 
 //  Funciones

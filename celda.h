@@ -18,7 +18,7 @@ class Celda{
         unsigned int posicionY;
         unsigned int posicionZ;
         Tipo tipo;
-        Celula celula;
+        Celula* celula;
         
     public:
     //  Constructores
@@ -29,7 +29,7 @@ class Celda{
         unsigned int getPosicionY();
         unsigned int getPosicionZ();
         Tipo getTipo();
-        Celula getCelula();
+        Celula* getCelula();
 
     //  Setters
         void setPosicionX(unsigned int nuevaPosicionX);

@@ -11,12 +11,13 @@ enum Estado{
 class Celula{
     private:
         Estado estado;
-        Gen gen1;
-        Gen gen2;
-        Gen gen3;
+        Gen* gen1;
+        Gen* gen2;
+        Gen* gen3;
 
     public:
         //  Constructores
+        Celula();
         Celula(Estado estado, unsigned int gen1, unsigned int gen2, unsigned int gen3);
 
         //  Getters

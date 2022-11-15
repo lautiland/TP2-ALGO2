@@ -1,12 +1,17 @@
 
+#include "lista.h"
 #include "celda.h"
+
 
 
 int main(){
 
-    Celda ** ppint;
-    
-    &ppint = new Celda[espacio.getMaximo()]
+    Lista < Lista < Lista < Celda* > * > * > * tablero;
 
-    return 0;
+    tablero = new Lista<Lista<Lista<Celda*>*>*>();
+
+    tablero->agregar(new Lista<Lista<Celda*>*>);
+
+
+    
 }
