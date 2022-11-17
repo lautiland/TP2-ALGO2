@@ -31,17 +31,17 @@ void AdministradorDeGen::setMasUnoIndice()
 Gen AdministradorDeGen::generar(Gen gen1, Gen gen2, Gen gen3)
 {
     // validar que los gen no sean nulos
-    Gen resultado = new Gen(this->maximoDeCargaGenetica);
+    Gen* resultado = new Gen(this->maximoDeCargaGenetica);
     switch (getIndice())
     {
     case 1:
-        resultado->setCargaGenetica((gen1->getCargaGenetica() + gen2->getCargaGenetica() + gen3->getCargaGenetica()) / 3);
+        resultado->setCargaGenetica((gen1.getCargaGenetica() + gen2.getCargaGenetica() + gen3.getCargaGenetica()) / 3);
     case 2:
-        resultado->setCargaGenetica((gen1->getCargaGenetica() / 2 + gen2->getCargaGenetica()));
+        resultado->setCargaGenetica((gen1.getCargaGenetica() / 2 + gen2.getCargaGenetica()));
     case 3:
-        resultado->setCargaGenetica((gen1->getCargaGenetica() * 2 - gen2->getCargaGenetica() / 2 + gen3->getCargaGenetica()));
+        resultado->setCargaGenetica((gen1.getCargaGenetica() * 2 - gen2.getCargaGenetica() / 2 + gen3.getCargaGenetica()));
     };
     setMasUnoIndice();
 
-    return resultado;
+    return *resultado;
 }
