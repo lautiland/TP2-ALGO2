@@ -45,6 +45,7 @@ void Celula::setGen3(unsigned int nuevoGen3 = 0){
 //  Funciones
 
 void Celula::mezclarGenes(){            // agregar lo del archivo AdministradorDeGen.h
+
 }
 void Celula::operator=(Celula nuevaCelula){         //esta funcion permite igualar dos celulas y que se copien los datos
     setEstado(nuevaCelula.getEstado());

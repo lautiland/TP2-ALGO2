@@ -9,7 +9,7 @@ private:
     Lista < Lista < Lista < Celda* > * > * > * tablero;
     
 public:
-    Tablero(unsigned int alto, unsigned int ancho, unsigned int largo);
+    Tablero(unsigned int largo, unsigned int ancho, unsigned int alto);
     ~Tablero();
 };
 

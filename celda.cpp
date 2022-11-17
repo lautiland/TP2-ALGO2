@@ -2,12 +2,12 @@
 
 //  Constructores
 
-Celda::Celda(unsigned int posicionX = 0, unsigned int posicionY = 0, unsigned int posicionZ = 0, Tipo tipo = estandar){
+Celda::Celda(unsigned int posicionX, unsigned int posicionY, unsigned int posicionZ, Tipo tipo){
     setPosicionX(posicionX);
     setPosicionY(posicionY);
     setPosicionZ(posicionZ);
     setTipo(tipo);
-    setCelula(Celula());
+    this->celula = new Celula();        //es por tema de incluciones de archivos, en visual no anda
 }
 
 //  Getters
@@ -42,9 +42,6 @@ void Celda::setPosicionZ(unsigned int nuevaPosicionZ = 0){
 void Celda::setTipo(Tipo nuevoTipo = estandar){
     this->tipo = nuevoTipo;
 }
-void Celda::setCelula(Celula nuevaCelula ){
-    this->celula = &nuevaCelula;          //uso la funcion del operador asignacion
-}
 
 //  Funciones
 
@@ -53,5 +50,6 @@ void Celda::operator=(Celda nuevaCelda){           //esta funcion permite iguala
     setPosicionY(nuevaCelda.getPosicionY());
     setPosicionZ(nuevaCelda.getPosicionZ());
     setTipo(nuevaCelda.getTipo());
-    setCelula(nuevaCelda.getCelula());
+    this->celula = nuevaCelda.getCelula();
 }
+

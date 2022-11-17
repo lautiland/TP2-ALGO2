@@ -1,52 +1,36 @@
 #include "Tablero.h"
-#define N 5
-#define M 5
-#define L 5
 
 //las globales son temporales para probar, lo mismo con eso de ancho alto etc
 
-Tablero::Tablero(unsigned int alto, unsigned int ancho, unsigned int largo) {
-    alto=N;
-    ancho=M;
-    largo=L;
+Tablero::Tablero(unsigned int largo, unsigned int ancho, unsigned int alto) {
+
 
     this->tablero = new Lista<Lista<Lista<Celda*>*>*>();
-    for(int i=0; i<N; i++){
-        //Lista<Lista<Celda> >* temp1 = new Lista<Lista<Celda>>();
-        tablero->agregar(new Lista<Lista<Celda*>*>);
-        for(int j=0; j<M; j++){
-            //temp-> agregar(new Lista<Celda>)
-            Lista<Celda>* temp2 = new Lista<Celda>();
-            for(int k=0; k<L, k++){
-                temp2-> agregar(new Celda(Celula()));
+
+
+    for(int k = 0; k < alto; k++){     // va rellenando el tablero
+
+        Lista<Lista<Celda*>*>* pagina = new Lista<Lista<Celda*>*>();    //crea la pagina 
+        
+        for(int j = 0; j < ancho; j++){     // va rellenando las paginas
+
+            Lista<Celda*>* columna = new Lista<Celda*>();  // crea la columna
+
+            for(int i = 0; i < largo; i++){      // va rellenando las columnas
+
+                Celda* fila = new Celda(i, j, k, estandar);     // crea la fila
+
+                columna->agregar(fila); // agrega la fila a la columna
 
             }
-        }
-        this->tablero->agregar(temp);
-    }
-
-    for(int i = 0; i < N; i++){
-
-        Lista<Lista<Celda*>*>* temp1 = new Lista<Lista<Celda*>*>();
-
-        for(int j = 0; j < M; j++){
-
-            Lista<Celda*>* temp2 = new Lista<Celda*>();
-
-            for(int k = 0; k < L; k++){
-
-                temp2-> agregar(new Celda());
-
-            }
-
-            temp1-> agregar(temp2);
+            
+            pagina->agregar(columna); //agregar la columna a la página
 
         }
 
-        this->tablero->agregar(temp1);
+        this->tablero->agregar(pagina);     // agrega la página al tablero
 
     }
-
 
 }
 

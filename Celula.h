@@ -17,7 +17,6 @@ class Celula{
 
     public:
         //  Constructores
-        Celula();
         Celula(Estado estado, unsigned int gen1, unsigned int gen2, unsigned int gen3);
 
         //  Getters

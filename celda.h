@@ -18,11 +18,11 @@ class Celda{
         unsigned int posicionY;
         unsigned int posicionZ;
         Tipo tipo;
-        Celula* celula;
+        Celula* celula; 
         
     public:
     //  Constructores
-        Celda(unsigned int posicionX, unsigned int posicionY, unsigned int posicionZ, Tipo tipo, Celula celula);
+        Celda(unsigned int posicionX, unsigned int posicionY, unsigned int posicionZ, Tipo tipo);
 
     //  Getters
         unsigned int getPosicionX();
