@@ -1,5 +1,7 @@
 #include "AdministradorDeGen.h"
 
+//  Constructores y destructores
+
 AdministradorDeGen::AdministradorDeGen(unsigned int maximoDeCargaGenetica)
 {
     this->maximoDeCargaGenetica = maximoDeCargaGenetica;
@@ -11,10 +13,14 @@ AdministradorDeGen::~AdministradorDeGen()
     // TODO Auto-generated destructor stub
 }
 
+//  Getters
+
 unsigned int AdministradorDeGen::getIndice()
 {
     return this->indice;
 };
+
+//  Setters
 
 void AdministradorDeGen::setMasUnoIndice()
 {
@@ -27,6 +33,8 @@ void AdministradorDeGen::setMasUnoIndice()
         this->indice = getIndice() + 1;
     }
 }
+
+//  Funciones
 
 Gen AdministradorDeGen::generar(Gen gen1, Gen gen2, Gen gen3)
 {

@@ -1,6 +1,6 @@
 #include "celda.h"
 
-//  Constructores
+//  Constructores y destructores
 
 Celda::Celda(unsigned int posicionX, unsigned int posicionY, unsigned int posicionZ, Tipo tipo){
     setPosicionX(posicionX);

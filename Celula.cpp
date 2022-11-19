@@ -1,6 +1,6 @@
 #include "celula.h"
 
-//  Constructores
+//  Constructores y destructor
 
 Celula::Celula(Estado estado = muerto, unsigned int gen1 = 0, unsigned int gen2 = 0, unsigned int gen3 = 0){
 
