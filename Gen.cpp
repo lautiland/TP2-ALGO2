@@ -9,16 +9,16 @@
 
 Gen::Gen(unsigned int maximoDeCargaGenetica)
 {
-    verificar(maximoDeCargaGenetica, 0);
-    this->cargaGenetica = 0;
+    unsigned int cargaVerificada = verificar(maximoDeCargaGenetica, 0);
+    this->cargaGenetica = cargaVerificada;
     this->maximoDeCargaGenetica = maximoDeCargaGenetica;
 }
 
 Gen::Gen(unsigned int maximoDeCargaGenetica, unsigned int cargaGenetica)
 {
-    verificar(maximoDeCargaGenetica, cargaGenetica);
+    unsigned int cargaVerificada = verificar(maximoDeCargaGenetica, cargaGenetica);
     this->maximoDeCargaGenetica = maximoDeCargaGenetica;
-    this->cargaGenetica = cargaGenetica;
+    this->cargaGenetica = cargaVerificada;
 }
 
 Gen::~Gen() {}
@@ -35,11 +35,11 @@ unsigned int Gen::getCargaGenetica()
 
 void Gen::setCargaGenetica(unsigned int cargaGenetica)
 {
-    verificar(this->maximoDeCargaGenetica, cargaGenetica);
-    this->cargaGenetica = cargaGenetica;
+    unsigned int cargaVerificada = verificar(this->maximoDeCargaGenetica, cargaGenetica);
+    this->cargaGenetica = cargaVerificada;
 }
 
-void Gen::verificar(unsigned int maximoDeCargaGenetica, unsigned int cargaGenetica)
+unsigned int Gen::verificar(unsigned int maximoDeCargaGenetica, unsigned int cargaGenetica)
 {
     if (maximoDeCargaGenetica < 0)
     {
@@ -47,10 +47,11 @@ void Gen::verificar(unsigned int maximoDeCargaGenetica, unsigned int cargaGeneti
     }
     if (cargaGenetica < 0)
     {
-        throw "La carga genetica ingresada no puede ser menor a 0";
-    }
+        cargaGenetica = 0;
+    };
     if (maximoDeCargaGenetica < cargaGenetica)
     {
-        // dar error con excepciones
-    }
+        cargaGenetica = maximoDeCargaGenetica;
+    };
+    return cargaGenetica;
 }
