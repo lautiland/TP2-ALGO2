@@ -96,7 +96,7 @@ Tablero::~Tablero()
 {
     this->tablero->iniciarCursor();
     while(this->tablero->avanzarCursor()){
-        Lista<Lista<Celda> > temp = this->tablero->obtenerCursor();
+        Lista<Lista<Celda*>*>* temp = this->tablero->obtenerCursor();
         temp->iniciarCursor();
         while(temp->avanzarCursor()){
             delete temp->obtenerCursor();
