@@ -58,6 +58,11 @@ public:
         void setDimensiones();
     
     //  Funciones
+        /**
+         * pre: -
+         * pos: -
+         */
+        void contadorCelulasVecinas(unsigned int fila, unsigned int columna, unsigned int pagina , unsigned int x1, unsigned int x2, unsigned int x3);
 
 };
 

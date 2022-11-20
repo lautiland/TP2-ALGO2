@@ -107,3 +107,26 @@ Tablero::~Tablero()
 
 
 }
+
+                                                    //posicion de la celda                                     //configuracion de usuario
+void Tablero::contadorCelulasVecinas(unsigned int fila, unsigned int columna, unsigned int pagina , unsigned int x1, unsigned int x2, unsigned int x3){  // x1: cels nesesarias para nacer; x2 y x3: cels para permanecer viva; en otro caso mueren
+    int vecinasVivas = 0;
+
+    Celda * celdaCentro = this->tablero->obtener(fila)->obtener(columna)->obtener(pagina);
+
+    for (int i = -1; i <= 1; i++)
+    {
+        for (int j = -1; j <= 1; j++)
+        {
+            for (int k = -1; k < 1; ++k)
+            {
+                if (!(i == 0 && j == 0 && k == 0) && (this->tablero->obtener(fila + i)->obtener(columna + j)->obtener(pagina + k)->getEstado() == viva)){
+                    vecinasVivas++;
+                }
+            }
+
+        }
+    }
+
+    celdaCentro->getCelula()->actualizarEstadoCelula(vecinasVivas, x1, x2, x3);
+}
