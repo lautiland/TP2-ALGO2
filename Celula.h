@@ -70,16 +70,24 @@ class Celula{
             void setGen3(unsigned int nuevoGen3);
         
         //  Funciones
+            
             /**
              * pre: -
              * pos: -
              */
             void mezclarGenes();
+
             /**
              * pre: -
              * pos: -
              */
             void operator=(Celula nuevaCelula);
+
+            /**
+             * pre: -
+             * pos: -
+             */
+            void actualizarEstadoCelula(celulasVecinas, x1, x2, x3);
 
 };
 
