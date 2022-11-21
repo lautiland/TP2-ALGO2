@@ -83,12 +83,7 @@ class Celula{
              */
             void operator=(Celula nuevaCelula);
 
-            /**
-             * pre: -
-             * pos: -
-             */
-            void actualizarEstadoCelula(celulasVecinas, x1, x2, x3);
-
+            
 };
 
 #endif

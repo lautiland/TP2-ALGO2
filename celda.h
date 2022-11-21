@@ -18,7 +18,8 @@ class Celda{
         unsigned int posicionY;
         unsigned int posicionZ;
         Tipo tipo;
-        Celula* celula; 
+        Celula* celula;
+        
         
     public:
     //  Constructores y destructor
@@ -89,6 +90,12 @@ class Celda{
          * pos: -
          */
         void operator=(Celda nuevaCelda);       //esta funcion permite igualar dos celdas y que se copien sus datos
+        /**
+         * pre: -
+         * pos: -
+         */
+        void actualizarEstadoCelula(unsigned int celulasVecinas, unsigned int x1, unsigned int x2, unsigned int x3);
+
 };
 
 #endif

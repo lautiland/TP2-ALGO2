@@ -53,10 +53,3 @@ void Celula::operator=(Celula nuevaCelula){         //esta funcion permite igual
     setGen2(nuevaCelula.getGen2());
     setGen3(nuevaCelula.getGen3());
 }
-
-void Celula::actualizarEstadoCelula(celulasVecinas, x1, x2, x3){
-    if((celulasVecinas == x1) && (this->getEstado == muerto)){
-        this->setEstado(vivo);
-    }else if((celulasVecinas < x2 && celulasVecinas > x3) && (this->getEstado == vivo)){
-        this->setEstado(muerto);
-}

@@ -53,3 +53,16 @@ void Celda::operator=(Celda nuevaCelda){           //esta funcion permite iguala
     this->celula = nuevaCelda.getCelula();
 }
 
+void Celda::actualizarEstadoCelula(unsigned int celulasVecinas, unsigned int x1, unsigned int x2, unsigned int x3){
+
+    if (getTipo() == procreadora){
+        x1 = x1 - 1;
+    }
+    
+
+    if((celulasVecinas == x1) && (getCelula()->getEstado() == muerto)){
+        getCelula()->setEstado(vivo);
+    }else if((celulasVecinas < x2 && celulasVecinas > x3) && (getCelula()->getEstado() == vivo)){
+        getCelula()->setEstado(muerto);
+}
+

@@ -4,6 +4,13 @@
 #include "Lista.h"
 #include "Celda.h"
 
+enum ModoDeJuego{
+    manual,
+    configuracion1,
+    configuracion2,
+    configuracion3
+};
+
 class Tablero
 {
 private:
@@ -11,6 +18,9 @@ private:
     unsigned int alto;
     unsigned int largo;
     unsigned int ancho;
+    unsigned int X1;
+    unsigned int X2;
+    unsigned int X3;
 
 public:
     //  Constructores y destructores
@@ -18,7 +28,7 @@ public:
          * pre: -
          * pos: -
          */
-        Tablero(unsigned int largo, unsigned int ancho, unsigned int alto);
+        Tablero(ModoDeJuego configuracion);
         /**
          * pre: -
          * pos: -
@@ -31,6 +41,21 @@ public:
          * pos: -
          */
         Lista<Lista<Lista<Celda *> *> *> *getTablero();
+        /**
+         * pre: -
+         * pos: -
+         */
+        unsigned int getX1();
+        /**
+         * pre: -
+         * pos: -
+         */
+        unsigned int getX2();
+        /**
+         * pre: -
+         * pos: -
+         */
+        unsigned int getX3();
         /**
          * pre: -
          * pos: -
@@ -55,15 +80,19 @@ public:
          * pre: -
          * pos: -
          */
-        void setDimensiones();
+        void setConfiguracion(ModoDeJuego configuracion);
     
     //  Funciones
         /**
          * pre: -
          * pos: -
          */
-        void contadorCelulasVecinas(unsigned int fila, unsigned int columna, unsigned int pagina , unsigned int x1, unsigned int x2, unsigned int x3);
-
+        void contadorCelulasVecinas(unsigned int fila, unsigned int columna, unsigned int pagina);
+        /**
+         * pre: -
+         * pos: -
+         */
+        unsigned int numeroAleatorio(int maximo);
 };
 
 #endif /* TABLEROH */
