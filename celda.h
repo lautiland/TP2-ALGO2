@@ -3,6 +3,9 @@
 
 #include "celula.h"
 
+//SOLO EN VISUAL
+#include "celula.cpp"
+
 enum Tipo{
     estandar, //no hace nada
     contaminada,

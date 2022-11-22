@@ -4,7 +4,10 @@
 #include "tablero.h"
 #include "turno.h"
 
-ModoDeJuego configurar();
+//SOLO EN VISUAL
+#include "tablero.cpp"
+#include "turno.cpp"
+
 
 
 #endif

@@ -3,6 +3,10 @@
 #include "EasyBMP.h"
 #include "EasyBMP.cpp"
 #include "tablero.h"
+
+//SOLO PARA VISUAL
+#include "tablero.cpp"
+
 using namespace std;
 int imagenesBitmap(Tablero *tablero)
 {

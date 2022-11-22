@@ -59,10 +59,12 @@ void Celda::actualizarEstadoCelula(unsigned int celulasVecinas, unsigned int x1,
         x1 = x1 - 1;
     }
     
+    
 
-    if((celulasVecinas == x1) && (getCelula()->getEstado() == muerto)){
+    if((celulasVecinas == x1) && (getCelula()->getEstado() == muerto) && (getTipo() != contaminada)){
         getCelula()->setEstado(vivo);
     }else if((celulasVecinas < x2 && celulasVecinas > x3) && (getCelula()->getEstado() == vivo)){
         getCelula()->setEstado(muerto);
-}
+    }
 
+}

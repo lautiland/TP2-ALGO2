@@ -1,7 +1,5 @@
 #include <iostream>
 #include "tablero.h"
-#include <cstdlib>
-#include <ctime>
 
 using namespace std;
 
@@ -143,9 +141,39 @@ Tablero::~Tablero()
 
 }
 
+void Tablero::definirCelulasVivas(){
+    int metodo;
+    do{
+        cout << "Elija el método para ingresar células vivas: " << endl;
+        cout << "1: Ingresar individualmente" << endl;
+        cout << "2: Ingresar por rango" << endl;
+        cin >> metodo;
+    }while((metodo != 1) || (metodo != 2));
+    if (metodo = 1){
+        
+        do{
+            unsigned int coordenadaX, coordenadaY, coordenadaZ;
+            do{
+                cout << "Ingrese la primera cordenada: " << endl;
+                cin >> coordenadaX;
+            }while((coordenadaX <= 0) || (coordenadaX > getAncho()));
+            do{
+                cout << "Ingrese la segunda cordenada: " << endl;
+                cin >> coordenadaY;
+            }while((coordenadaY <= 0) || (coordenadaX > getLargo()));
+
+
+        }while();
+    }elif (metodo = 2){
+
+    }
+
+}
+
+
                                                     //posicion de la celda                                     //configuracion de usuario
 void Tablero::contadorCelulasVecinas(unsigned int fila, unsigned int columna, unsigned int pagina){  // x1: cels nesesarias para nacer; x2 y x3: cels para permanecer viva; en otro caso mueren
-    int vecinasVivas = 0;
+    unsigned int vecinasVivas = 0;
     unsigned int vecinaX;
     unsigned int vecinaY;
     unsigned int vecinaZ;
@@ -175,16 +203,18 @@ void Tablero::contadorCelulasVecinas(unsigned int fila, unsigned int columna, un
                 }
 
                 if ((pagina + i) == -1){
-                    vecinaY = getAlto();
+                    vecinaZ = getAlto();
                 }else if ((pagina + i) == (getAlto() + 1)){
-                    vecinaY = 0;
+                    vecinaZ = 0;
                 }else{
-                    vecinaY = pagina + i;
+                    vecinaZ = pagina + i;
                 }
                 
                 if (!(i == 0 && j == 0 && k == 0)){
                     if (this->tablero->obtener(vecinaX)->obtener(vecinaY)->obtener(vecinaZ)->getCelula()->getEstado() == vivo){
                         vecinasVivas++;
+
+
                     }
                 }
 
@@ -196,8 +226,9 @@ void Tablero::contadorCelulasVecinas(unsigned int fila, unsigned int columna, un
     celdaCentro->actualizarEstadoCelula(vecinasVivas, getX1(), getX2(), getX3());
 }
 
-unsigned int numeroAleatorio(int maximo)
+unsigned int Tablero::numeroAleatorio(unsigned int maximo)
 {
     srand(time(NULL));
     return rand() % maximo + 1;
 };
+

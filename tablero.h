@@ -3,6 +3,11 @@
 
 #include "Lista.h"
 #include "Celda.h"
+#include <cstdlib>
+#include <ctime>
+
+//SOLO EN VISUAL
+#include "celda.cpp"
 
 enum ModoDeJuego{
     manual,
@@ -87,12 +92,17 @@ public:
          * pre: -
          * pos: -
          */
+        void definirCelulasVivas();
+        /**
+         * pre: -
+         * pos: -
+         */
         void contadorCelulasVecinas(unsigned int fila, unsigned int columna, unsigned int pagina);
         /**
          * pre: -
          * pos: -
          */
-        unsigned int numeroAleatorio(int maximo);
+        unsigned int numeroAleatorio(unsigned int maximo);
 };
 
 #endif /* TABLEROH */

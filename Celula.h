@@ -3,6 +3,10 @@
 
 #include "gen.h"
 
+//SOLO EN VISUAL
+
+#include "gen.cpp"
+
 enum Estado{
     vivo,
     muerto

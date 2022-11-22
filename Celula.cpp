@@ -31,6 +31,15 @@ unsigned int Celula::getGen3(){
 
 void Celula::setEstado(Estado nuevoEstado = muerto){
     this->estado = nuevoEstado;
+    if (nuevoEstado == muerto){
+        setGen1(0);
+        setGen2(0);
+        setGen3(0);
+    }else{
+        setGen1(127);
+        setGen2(127);
+        setGen3(127);
+    }
 }
 void Celula::setGen1(unsigned int nuevoGen1 = 0){
     this->gen1->setCargaGenetica(nuevoGen1);

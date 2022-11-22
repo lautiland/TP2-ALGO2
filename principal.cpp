@@ -42,5 +42,9 @@ ModoDeJuego configurar(){
 
 int main (){
 
+    Tablero* partida = new Tablero(configurar());
+
+
     return 0;
+
 }
