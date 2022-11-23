@@ -63,18 +63,19 @@ void Tablero::setConfiguracion(ModoDeJuego configuracion){
     //los numeros que ponemos en los modos automaticos pueden ir en constantes globales ahora que lo pienso
     switch(configuracion){
         case manual:
-            cout << "Ingrese el alto del tablero deseado: " << endl;
-            cin >> this->alto;
             cout << "Ingrese el ancho del tablero deseado: " << endl;
             cin >> this->ancho;
             cout << "Ingrese el largo del tablero deseado: " << endl;
             cin >> this->largo;
-            cout << "Ingrese la cantidad de células vecinas vivas necesarias para que nazca una célula: " << endl;
+            cout << "Ingrese el alto del tablero deseado: " << endl;
+            cin >> this->alto;
+            cout << "Ingrese la cantidad de celulas vecinas vivas necesarias para que nazca una celula: " << endl;
             cin >> this->X1;
-            cout << "Ingrese la minima cantidad de células vecinas vivas para que se reproduzcan: " << endl;
+            cout << "Ingrese la cantidad minima de celulas vecinas vivas para que nazca una nueva celula: " << endl;
             cin >> this->X2;
-            cout << "Ingrese la minima cantidad de células vecinas vivas para que mueran por soprepoblación: " << endl;
+            cout << "Ingrese la cantidad maxima de celulas vecinas vivas para que muera una celulaS: " << endl;
             cin >> this->X3;
+            cout << endl;
             break;
 
         case configuracion1:
@@ -157,10 +158,11 @@ void Tablero::definirCelulasVivas(){
     do{
 
         do{
-            cout << "Elija el método para ingresar células vivas: " << endl;
-            cout << "1: Ingresar individualmente" << endl;
-            cout << "2: Ingresar por rango" << endl;
+            cout << "Elija el metodo para ingresar celulas vivas: " << endl;
+            cout << "1: Ingresar individualmente." << endl;
+            cout << "2: Ingresar por rango." << endl << endl;
             cin >> metodo;
+            cout << endl;
 
         }while((metodo != 1) && (metodo != 2));
         if (metodo == 1){
@@ -184,10 +186,13 @@ void Tablero::definirCelulasVivas(){
 
                 getTablero()->obtener(coordenadaZ)->obtener(coordenadaY)->obtener(coordenadaX)->getCelula()->setEstado(vivo);
 
-                cout << "La célula se ha ingresado con éxito la célula: (" << coordenadaX << ", " << coordenadaY << ", " << coordenadaZ << ") " << endl;
+                cout << "Se ha ingresado con exito la celula (" << coordenadaX << ", " << coordenadaY << ", " << coordenadaZ << ")." << endl;
+                cout << endl;
+                
                 do {
-                    cout << "¿Desea seguir ingresando células? s/n" << endl;
+                    cout << "Desea seguir ingresando celulas con este metodo? s/n." << endl << endl;
                     cin >> seguir;
+                    cout << endl;
                 }while((seguir != 's') && (seguir != 'n') && (seguir != 'S') && (seguir != 'N'));
                 
             }while((seguir == 's') || (seguir == 'S'));
@@ -198,29 +203,29 @@ void Tablero::definirCelulasVivas(){
             do{
                 unsigned int coordenadaX1, coordenadaY1, coordenadaZ1;
                 do{
-                    cout << "Ingrese la primera cordenada de la primera célula: " << endl;
+                    cout << "Ingrese la primera cordenada de la primera celula: " << endl;
                     cin >> coordenadaX1;
                 }while((coordenadaX1 <= 0) || (coordenadaX1 > getAncho()));
                 do{
-                    cout << "Ingrese la segunda cordenada de la primera célula: " << endl;
+                    cout << "Ingrese la segunda cordenada de la primera celula: " << endl;
                     cin >> coordenadaY1;
                 }while((coordenadaY1 <= 0) || (coordenadaY1 > getLargo()));
                 do{
-                    cout << "Ingrese la tercera cordenada de la primera célula: " << endl;
+                    cout << "Ingrese la tercera cordenada de la primera celula: " << endl;
                     cin >> coordenadaZ1;
                 }while((coordenadaZ1 <= 0) || (coordenadaZ1 > getAlto()));
 
                 unsigned int coordenadaX2, coordenadaY2, coordenadaZ2;
                 do{
-                    cout << "Ingrese la primera cordenada de la segunda célula: " << endl;
+                    cout << "Ingrese la primera cordenada de la segunda celula: " << endl;
                     cin >> coordenadaX2;
                 }while((coordenadaX2 <= 0) || (coordenadaX2 > getAncho()));
                 do{
-                    cout << "Ingrese la segunda cordenada de la segunda célula: " << endl;
+                    cout << "Ingrese la segunda cordenada de la segunda celula: " << endl;
                     cin >> coordenadaY2;
                 }while((coordenadaY2 <= 0) || (coordenadaY2 > getLargo()));
                 do{
-                    cout << "Ingrese la tercera cordenada de la segunda célula: " << endl;
+                    cout << "Ingrese la tercera cordenada de la segunda celula: " << endl;
                     cin >> coordenadaZ2;
                 }while((coordenadaZ2 <= 0) || (coordenadaZ2 > getAlto()));
 
@@ -248,10 +253,14 @@ void Tablero::definirCelulasVivas(){
                     }
                 }
 
-                cout << "El rango se ha ingresado con éxito" << endl;
+                cout << "Se ha ingresado con exito el rango entre (" << coordenadaX1 << ", " << coordenadaY1 << ", " << coordenadaZ1 << ") y (";
+                cout << coordenadaX2 << ", " << coordenadaY2 << ", " << coordenadaZ2 << ").";
+                cout << endl;
+                
                 do {
-                    cout << "¿Desea seguir ingresando rangos de células? s/n" << endl;
+                    cout << "Desea seguir ingresando rangos de celulas con este metodo? s/n." << endl << endl;
                     cin >> seguir;
+                    cout << endl;
 
                 }while((seguir != 's') && (seguir != 'n') && (seguir != 'S') && (seguir != 'N'));
 
@@ -260,13 +269,14 @@ void Tablero::definirCelulasVivas(){
         }
 
         do{
-            cout << "¿Desea utilizar otro metodo para ingresar células? s/n" << endl;
+            cout << "Desea utilizar otro metodo para ingresar celulas? s/n." << endl << endl;
             cin >> otroMetodo;
+            cout << endl;
         }while((otroMetodo != 's') && (otroMetodo != 'n') && (otroMetodo != 'S') && (otroMetodo != 'N'));
 
     }while ((otroMetodo == 's') || (otroMetodo == 'S'));
 
-    cout << "Las células fueron ingresadas con éxito" << endl;
+    cout << "Las celulas fueron ingresadas con exito." << endl << endl;
     
 }
 
