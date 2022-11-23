@@ -2,6 +2,7 @@
 #define CELDA_H_
 
 #include "celula.h"
+#include "lista.h"
 
 //SOLO EN VISUAL
 #include "celula.cpp"
@@ -97,8 +98,12 @@ class Celda{
          * pre: -
          * pos: -
          */
-        void actualizarEstadoCelula(unsigned int celulasVecinas, unsigned int x1, unsigned int x2, unsigned int x3);
-
+        void actualizarEstadoCelula(unsigned int celulasVecinas, unsigned int x1, unsigned int x2, unsigned int x3, Lista<Celda*>* listaVecinasVivas);
+        /**
+         * pre: -
+         * pos: -
+         */
+        void actualizaGenesCelula(Lista<Celda*>* listaVecinasVivas);
 };
 
 #endif

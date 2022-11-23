@@ -44,6 +44,13 @@ int main (){
 
     Tablero* partida = new Tablero(configurar());
 
+    partida->definirCelulasVivas();
+
+    
+
+    cout << "fin";
+
+    partida->~Tablero();
 
     return 0;
 

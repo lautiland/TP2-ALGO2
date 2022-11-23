@@ -1,14 +1,15 @@
 #include "celula.h"
+#include <iostream>
 
 //  Constructores y destructor
 
 Celula::Celula(Estado estado = muerto, unsigned int gen1 = 0, unsigned int gen2 = 0, unsigned int gen3 = 0){
 
-    setEstado(estado);
-
     this->gen1 = new Gen(255, gen1);
     this->gen2 = new Gen(255, gen2);
     this->gen3 = new Gen(255, gen3);
+
+    setEstado(estado);
 
 }
 

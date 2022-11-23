@@ -1,11 +1,11 @@
 #ifndef CELULA_H_
 #define CELULA_H_
 
-#include "gen.h"
+#include "administradorDeGen.h"
 
 //SOLO EN VISUAL
 
-#include "gen.cpp"
+#include "administradorDeGen.cpp"
 
 enum Estado{
     vivo,

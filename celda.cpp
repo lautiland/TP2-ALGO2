@@ -7,6 +7,8 @@ Celda::Celda(unsigned int posicionX, unsigned int posicionY, unsigned int posici
     setPosicionY(posicionY);
     setPosicionZ(posicionZ);
     setTipo(tipo);
+
+
     this->celula = new Celula();        //es por tema de incluciones de archivos, en visual no anda
 }
 
@@ -53,18 +55,46 @@ void Celda::operator=(Celda nuevaCelda){           //esta funcion permite iguala
     this->celula = nuevaCelda.getCelula();
 }
 
-void Celda::actualizarEstadoCelula(unsigned int celulasVecinas, unsigned int x1, unsigned int x2, unsigned int x3){
+void Celda::actualizarEstadoCelula(unsigned int celulasVecinas, unsigned int x1, unsigned int x2, unsigned int x3, Lista<Celda*>* listaVecinasVivas){
 
-    if (getTipo() == procreadora){
+    if (getTipo() == procreadora)
+    {
         x1 = x1 - 1;
-    }
-    
-    
-
-    if((celulasVecinas == x1) && (getCelula()->getEstado() == muerto) && (getTipo() != contaminada)){
+    };
+    if ((celulasVecinas == x1) && (getCelula()->getEstado() == muerto) && (getTipo() != contaminada))
+    {
         getCelula()->setEstado(vivo);
-    }else if((celulasVecinas < x2 && celulasVecinas > x3) && (getCelula()->getEstado() == vivo)){
-        getCelula()->setEstado(muerto);
+        actualizaGenesCelula(listaVecinasVivas);
     }
+    else if ((celulasVecinas < x2 && celulasVecinas > x3) && (getCelula()->getEstado() == vivo))
+    {
+        getCelula()->setEstado(muerto);
+    };
+}
 
+void Celda::actualizaGenesCelula(Lista<Celda*>* listaVecinasVivas){
+    if (listaVecinasVivas = NULL){
+        throw "no se pueden cambiar los genes si no tengo una lista de progenitoras";
+    }
+    if (this->getCelula()->getEstado() == vivo)
+    {
+        for (int i = 0; i < listaVecinasVivas->contarElementos(); i++)
+        {
+            AdministradorDeGen* nuevoGen = new AdministradorDeGen(255);
+            switch (i){
+            case 1:
+                getCelula()->setGen1(nuevoGen->generar(listaVecinasVivas->obtener(i)->getCelula()->getGen1(), listaVecinasVivas->obtener(i)->getCelula()->getGen2(), listaVecinasVivas->obtener(i)->getCelula()->getGen3()).getCargaGenetica());
+                break;
+            case 2:
+                getCelula()->setGen2(nuevoGen->generar(listaVecinasVivas->obtener(i)->getCelula()->getGen1(), listaVecinasVivas->obtener(i)->getCelula()->getGen2(), listaVecinasVivas->obtener(i)->getCelula()->getGen3()).getCargaGenetica());
+                break;
+            case 3:
+                getCelula()->setGen3(nuevoGen->generar(listaVecinasVivas->obtener(i)->getCelula()->getGen1(), listaVecinasVivas->obtener(i)->getCelula()->getGen2(), listaVecinasVivas->obtener(i)->getCelula()->getGen3()).getCargaGenetica());
+                break;
+            default:
+                break;
+            }
+            delete nuevoGen;
+        }
+    }
 }

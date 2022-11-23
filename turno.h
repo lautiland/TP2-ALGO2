@@ -6,9 +6,9 @@ enum Ejecucion{
 	corriendo
 };
 
-class turno{
+class Turno{
 	private:
-
+	unsigned int numeroDeTurno;
 	unsigned int totalVivas;
 	unsigned int totalMuertas;
 	unsigned int renacidasEnTurno;
@@ -21,11 +21,10 @@ class turno{
 
 	//constructores:
 
-	turno();
-	~turno();
+	Turno();
 
 	//getters:
-
+	unsigned int getNumeroDeTurno();
 	unsigned int getTotalVivas();
 	unsigned int getTotalMuertas();
 	unsigned int getRenacidasEnTurno();
@@ -35,7 +34,7 @@ class turno{
 	Ejecucion getEjecucion();
 
 	//setters:
-
+	void setNumeroDeTurno(unsigned int turno);
 	void setTotalVivas(unsigned int nuevoTotalVivas);
 	void setTotalMuertas(unsigned int nuevoTotalMuertas);
 	void setRenacidasEnTurno(unsigned int nuevoRenacidasEnTurno);
@@ -43,6 +42,9 @@ class turno{
 	void setPromedioNacidas(unsigned int nuevoPromedioNacidas);
 	void setPromedioMuertas(unsigned int nuevoPromedioMuertas);
 	void setEjecucion(Ejecucion nuevoEjecucion);
+
+	//funciones:
+	void siguienteTurno();
 	
 };
 

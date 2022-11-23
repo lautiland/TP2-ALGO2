@@ -1,6 +1,7 @@
 #include "turno.h"
 
-turno::turno(){
+Turno::Turno(){
+	this->numeroDeTurno = 1;
 	this->totalVivas = 0;
 	this->totalMuertas = 0;
 	this->renacidasEnTurno = 0;
@@ -10,47 +11,64 @@ turno::turno(){
 	this->ejecucion = corriendo;
 }
 
-	//getters:
+//getters:
 
-	unsigned int turno::getTotalVivas(){
-		return this->totalVivas;
-	}
-	unsigned int turno::getTotalMuertas(){
-		return this->totalMuertas;
-	}
-	unsigned int turno::getRenacidasEnTurno(){
-		return this->renacidasEnTurno;
-	}
-	unsigned int turno::getMuertasEnTurno(){
-		return this->muertasEnTurno;
-	}
-	unsigned int turno::getPromedioNacidas(){
-		return this->promedioNacidas;
-	}
-	unsigned int turno::getPromedioMuertas(){
-		return this->promedioMuertas;
-	}
-	Ejecucion turno::getEjecucion(){
-		return this->ejecucion;
-	}
+unsigned int Turno::getNumeroDeTurno(){
+	return this->numeroDeTurno;
+}
+unsigned int Turno::getTotalVivas(){
+	return this->totalVivas;
+}
+unsigned int Turno::getTotalMuertas(){
+	return this->totalMuertas;
+}
+unsigned int Turno::getRenacidasEnTurno(){
+	return this->renacidasEnTurno;
+}
+unsigned int Turno::getMuertasEnTurno(){
+	return this->muertasEnTurno;
+}
+unsigned int Turno::getPromedioNacidas(){
+	return this->promedioNacidas;
+}
+unsigned int Turno::getPromedioMuertas(){
+	return this->promedioMuertas;
+}
+Ejecucion Turno::getEjecucion(){
+	return this->ejecucion;
+}
 
-	//setters:
+//setters:
 
-	void turno::setTotalVivas(unsigned int nuevoTotalVivas){
-		this->totalVivas = nuevoTotalVivas;
-	}
-	void turno::setTotalMuertas(unsigned int nuevoTotalMuertas){
-		this->totalMuertas = nuevoTotalMuertas;
-	}
-	void turno::setRenacidasEnTurno(unsigned int nuevoRenacidasEnTurno){
-		this->renacidasEnTurno = nuevoRenacidasEnTurno;
-	}
-	void turno::setMuertasEnTurno(unsigned int nuevoMuertasEnTurno){
-		this->muertasEnTurno = nuevoMuertasEnTurno;
-	}
-	void turno::setPromedioNacidas(unsigned int nuevoPromedioNacidas){
-		this->promedioMuertas = nuevoPromedioNacidas;
-	}	
-	void turno::setEjecucion(Ejecucion nuevoEjecucion){
-		this->ejecucion = nuevoEjecucion;
-	}
+void Turno::setNumeroDeTurno(unsigned int turno){
+	this->numeroDeTurno = turno;
+}
+void Turno::setTotalVivas(unsigned int nuevoTotalVivas){
+	this->totalVivas = nuevoTotalVivas;
+}
+void Turno::setTotalMuertas(unsigned int nuevoTotalMuertas){
+	this->totalMuertas = nuevoTotalMuertas;
+}
+void Turno::setRenacidasEnTurno(unsigned int nuevoRenacidasEnTurno){
+	this->renacidasEnTurno = nuevoRenacidasEnTurno;
+}
+void Turno::setMuertasEnTurno(unsigned int nuevoMuertasEnTurno){
+	this->muertasEnTurno = nuevoMuertasEnTurno;
+}
+void Turno::setPromedioNacidas(unsigned int celulasNacidasEnTurno){
+	this->promedioMuertas = (celulasNacidasEnTurno + getTotalVivas()) / getNumeroDeTurno();
+}
+
+void Turno::setPromedioMuertas(unsigned int celulasMuertasEnTurno){
+	this->promedioMuertas = (celulasMuertasEnTurno + getTotalMuertas()) / getNumeroDeTurno();
+}
+
+void Turno::setEjecucion(Ejecucion nuevoEjecucion){
+	this->ejecucion = nuevoEjecucion;
+}
+
+void Turno::siguienteTurno(){
+	this->numeroDeTurno++;
+	this->renacidasEnTurno = 0;
+	this->muertasEnTurno = 0;
+}

@@ -1,6 +1,11 @@
 #ifndef ADMINISTRADORDEGENH
 #define ADMINISTRADORDEGENH
-#include "Gen.h"
+
+#include "gen.h"
+
+//SOLO EN VISUAL
+#include "gen.cpp"
+
 class AdministradorDeGen
 {
 

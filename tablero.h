@@ -1,13 +1,14 @@
 #ifndef TABLEROH
 #define TABLEROH
 
-#include "Lista.h"
-#include "Celda.h"
+#include "celda.h"
+#include "turno.h"
 #include <cstdlib>
 #include <ctime>
 
 //SOLO EN VISUAL
 #include "celda.cpp"
+#include "turno.cpp"
 
 enum ModoDeJuego{
     manual,
@@ -19,7 +20,8 @@ enum ModoDeJuego{
 class Tablero
 {
 private:
-    Lista<Lista<Lista<Celda *> *> *> *tablero;
+    Lista<Lista<Lista<Celda *> *> *> * tablero;
+    Turno turno;
     unsigned int alto;
     unsigned int largo;
     unsigned int ancho;
@@ -75,6 +77,11 @@ public:
          * pre: -
          * pos: -
          */
+        Turno getTurno();
+        /**
+         * pre: -
+         * pos: -
+         */
         unsigned int getLargo();
         //se me ocurre poner un metodo que meta las celulas onda setCelulas() que cambie el estado de las celulas a vivas
         //onda que ponga this->estado=Viva, el tema seria ver como hacemos las coordenadas ya que van metidas una por una
@@ -93,6 +100,11 @@ public:
          * pos: -
          */
         void definirCelulasVivas();
+        /**
+         * pre: -
+         * pos: -
+         */
+        void contabilizarCasos(Estado aux, Celda* celdaCentro);
         /**
          * pre: -
          * pos: -
