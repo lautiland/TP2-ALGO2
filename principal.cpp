@@ -24,6 +24,8 @@ void resolverTurno(Tablero* tablero){
         }
     }
 }
+
+
 ModoDeJuego configurar(){
     ModoDeJuego configuracion;
     int opcion;
@@ -68,4 +70,54 @@ int main (){
 
     return 0;
 
+}
+
+//------------------------>
+AccionTurno preguntarTurno(Turno * partida){
+    int respuesta;
+    std::cout << "Indique la acción deseada para el siguiente turno: " << std::endl;
+    std::cout << "1 = Continuar el juego." << std::endl;
+    std::cout << "2 = Reiniciar la partida." << std::endl;
+    std::cout << "3 = Terminar el juego." << std::endl;
+    std::cin >> respuesta;
+    switch (respuesta)
+    {
+    case 1:
+        partida->turno->siguienteTurno();
+        return Continuar;
+        break;
+    case 2:
+        delete partida;
+        partida = new Tablero(configurar());
+        return Reiniciar;
+        break;
+    case 3:
+        return Terminar;
+        break;
+
+    default:
+        return preguntarTurno();
+        break;
+    }
+};
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int main(){
+
+    Tablero* partida = new Tablero(configurar());
+
+    do{
+        bienvenida();
+
+        partida->definirCelulasVivas();
+
+        cout << "fin";
+
+        partida->~Tablero();
+
+    }while(preguntarTurno(partida) != Terminar);
+
+    return 0;
 }
