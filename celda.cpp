@@ -2,60 +2,70 @@
 
 //  Constructores y destructores
 
-Celda::Celda(unsigned int posicionX, unsigned int posicionY, unsigned int posicionZ, Tipo tipo){
+Celda::Celda(unsigned int posicionX, unsigned int posicionY, unsigned int posicionZ, Tipo tipo)
+{
     setPosicionX(posicionX);
     setPosicionY(posicionY);
     setPosicionZ(posicionZ);
     setTipo(tipo);
 
-
-    this->celula = new Celula();        //es por tema de incluciones de archivos, en visual no anda
+    this->celula = new Celula(); // es por tema de incluciones de archivos, en visual no anda
 }
 
 //  Getters
 
-unsigned int Celda::getPosicionX(){
+unsigned int Celda::getPosicionX()
+{
     return posicionX;
 }
-unsigned int Celda::getPosicionY(){
+unsigned int Celda::getPosicionY()
+{
     return posicionY;
 }
-unsigned int Celda::getPosicionZ(){
+unsigned int Celda::getPosicionZ()
+{
     return posicionZ;
 }
-Tipo Celda::getTipo(){
+Tipo Celda::getTipo()
+{
     return tipo;
 }
-Celula* Celda::getCelula(){
+Celula *Celda::getCelula()
+{
     return celula;
 }
 
 //  Setters
 
-void Celda::setPosicionX(unsigned int nuevaPosicionX = 0){
+void Celda::setPosicionX(unsigned int nuevaPosicionX = 0)
+{
     this->posicionX = nuevaPosicionX;
 }
-void Celda::setPosicionY(unsigned int nuevaPosicionY = 0){
+void Celda::setPosicionY(unsigned int nuevaPosicionY = 0)
+{
     this->posicionY = nuevaPosicionY;
 }
-void Celda::setPosicionZ(unsigned int nuevaPosicionZ = 0){
+void Celda::setPosicionZ(unsigned int nuevaPosicionZ = 0)
+{
     this->posicionZ = nuevaPosicionZ;
 }
-void Celda::setTipo(Tipo nuevoTipo = estandar){
+void Celda::setTipo(Tipo nuevoTipo = estandar)
+{
     this->tipo = nuevoTipo;
 }
 
 //  Funciones
 
-void Celda::operator=(Celda nuevaCelda){           //esta funcion permite igualar dos celdas y que se copien sus datos
+void Celda::operator=(Celda nuevaCelda)
+{ // esta funcion permite igualar dos celdas y que se copien sus datos
     setPosicionX(nuevaCelda.getPosicionX());
     setPosicionY(nuevaCelda.getPosicionY());
     setPosicionZ(nuevaCelda.getPosicionZ());
     setTipo(nuevaCelda.getTipo());
     this->celula = nuevaCelda.getCelula();
 }
-
-void Celda::actualizarEstadoCelula(unsigned int celulasVecinas, unsigned int x1, unsigned int x2, unsigned int x3, Lista<Celda*>* listaVecinasVivas){
+void Celda::actualizarEstadoCelula(unsigned int celulasVecinas, unsigned int x1, unsigned int x2, unsigned int x3, Lista<Celda *> *listaVecinasVivas)
+{
 
     if (getTipo() == procreadora)
     {
@@ -72,16 +82,19 @@ void Celda::actualizarEstadoCelula(unsigned int celulasVecinas, unsigned int x1,
     };
 }
 
-void Celda::actualizaGenesCelula(Lista<Celda*>* listaVecinasVivas){
-    if (listaVecinasVivas = NULL){
+void Celda::actualizaGenesCelula(Lista<Celda *> *listaVecinasVivas)
+{
+    if (listaVecinasVivas = NULL)
+    {
         throw "no se pueden cambiar los genes si no tengo una lista de progenitoras";
     }
     if (this->getCelula()->getEstado() == vivo)
     {
         for (int i = 0; i < listaVecinasVivas->contarElementos(); i++)
         {
-            AdministradorDeGen* nuevoGen = new AdministradorDeGen(255);
-            switch (i){
+            AdministradorDeGen *nuevoGen = new AdministradorDeGen(255);
+            switch (i)
+            {
             case 1:
                 getCelula()->setGen1(nuevoGen->generar(listaVecinasVivas->obtener(i)->getCelula()->getGen1(), listaVecinasVivas->obtener(i)->getCelula()->getGen2(), listaVecinasVivas->obtener(i)->getCelula()->getGen3()).getCargaGenetica());
                 break;

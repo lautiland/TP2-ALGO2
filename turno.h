@@ -1,13 +1,15 @@
 #ifndef _TURNO_H_
 #define _TURNO_H_
 
-enum Ejecucion{
+enum Ejecucion
+{
 	congelado,
 	corriendo
 };
 
-class Turno{
-	private:
+class Turno
+{
+private:
 	unsigned int numeroDeTurno;
 	unsigned int totalVivas;
 	unsigned int totalMuertas;
@@ -17,13 +19,12 @@ class Turno{
 	unsigned int promedioMuertas;
 	Ejecucion ejecucion;
 
-	public:
-
-	//constructores:
+public:
+	// constructores:
 
 	Turno();
 
-	//getters:
+	// getters:
 	unsigned int getNumeroDeTurno();
 	unsigned int getTotalVivas();
 	unsigned int getTotalMuertas();
@@ -33,7 +34,7 @@ class Turno{
 	unsigned int getPromedioMuertas();
 	Ejecucion getEjecucion();
 
-	//setters:
+	// setters:
 	void setNumeroDeTurno(unsigned int turno);
 	void setTotalVivas(unsigned int nuevoTotalVivas);
 	void setTotalMuertas(unsigned int nuevoTotalMuertas);
@@ -42,10 +43,9 @@ class Turno{
 	void setPromedioNacidas(unsigned int nuevoPromedioNacidas);
 	void setPromedioMuertas(unsigned int nuevoPromedioMuertas);
 	void setEjecucion(Ejecucion nuevoEjecucion);
-
-	//funciones:
+	Ejecucion comparacionDeTurnos(Turno *otroTurno);
+	// funciones:
 	void siguienteTurno();
-	
 };
 
 #endif
