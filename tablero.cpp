@@ -438,9 +438,9 @@ void Tablero::devolverTablero(unsigned int i, unsigned int j, unsigned int k)
 {
     if (getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getEstado() == vivo)
     {
-        cout << 1;
+        cout << 1 << " ";
      }else{
-        cout << 0;
+        cout << 0 << " ";
      }
 }
 
@@ -449,17 +449,17 @@ void Tablero::imprimirTablero()
     
     for (unsigned int i = 0; i < getAlto(); i++)
     {
-        cout << "Pagina numero: " << i << endl;
-        getTablero()->obtener(i);
+        cout << "Pagina numero " << i+1 << ":" << endl << endl;
         for (unsigned int j = 0; j < getLargo(); j++)
         {
+            cout << "     ";
             for (unsigned int k = 0; k < getAncho(); k++)
             {
                 devolverTablero(i, j, k);
-                //cout << "|" <<  << "|";
             };
             cout << endl;
         }
+        cout << endl;
     }
 }
 

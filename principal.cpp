@@ -78,10 +78,10 @@ ModoDeJuego configurar()
 AccionTurno preguntarTurno(Tablero *partida)
 {
     int respuesta;
-    std::cout << "Indique la acción deseada para el siguiente turno: " << std::endl;
-    std::cout << "1 = Continuar el juego." << std::endl;
-    std::cout << "2 = Reiniciar la partida." << std::endl;
-    std::cout << "3 = Terminar el juego." << std::endl;
+    std::cout << "Indique la accion deseada para el siguiente turno: " << std::endl;
+    std::cout << "1: Continuar el juego." << std::endl;
+    std::cout << "2: Reiniciar la partida." << std::endl;
+    std::cout << "3: Terminar el juego." << std::endl;
     std::cin >> respuesta;
     switch (respuesta)
     {
@@ -90,7 +90,7 @@ AccionTurno preguntarTurno(Tablero *partida)
         return continuar;
         break;
     case 2:
-        delete partida;
+        partida->~Tablero();
         partida = new Tablero(configurar());
         return reiniciar;
         break;
@@ -106,44 +106,30 @@ AccionTurno preguntarTurno(Tablero *partida)
 
 int imagenesBitmap(Tablero *tablero)
 {
-    char pagina;
+    char nombre[5];
+    const char * pagina = &nombre[0];
     for (unsigned int i = 0; i < tablero->getLargo(); i++)
     {
         BMP imagen;
         imagen.SetSize(tablero->getAncho(), tablero->getAlto());
         imagen.SetBitDepth(8);
 
-        for (unsigned int j = 0; j < imagen.TellWidth() - 1; ++j)
-            for (unsigned int k = 0; k < imagen.TellHeight() - 1; ++k)
+        for (unsigned int j = 0; j < imagen.TellWidth(); ++j)
+            for (unsigned int k = 0; k < imagen.TellHeight(); ++k)
             {
                 imagen(j, k)->Red = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen1();
                 imagen(j, k)->Blue = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen2();
                 imagen(j, k)->Green = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen3();
+                
             }
-            switch (i)
-            {
-            case 1:
-                pagina = 'a';
-
-                break;
-            case 2:
-                pagina = 'b';
-                break;
-            case 3:
-                pagina = 'c';
-                break;
-            case 4:
-                pagina = 'd';
-                break;
-            case 5:
-                pagina = 'e';
-                break;
-                // la vida es debuggear codigo :'
-            default:
-                break;
-            }
-        imagen.WriteToFile(pagina + ".bmp");
+        nombre[0] = char(65+i);
+        nombre[1] = '.';
+        nombre[2] = 'b';
+        nombre[3] = 'm';
+        nombre[4] = 'p';
+        imagen.WriteToFile(pagina);
     };
+    
 
     return 0;
 };
@@ -152,22 +138,18 @@ int imagenesBitmap(Tablero *tablero)
 
 int main()
 {
+    bienvenida();
 
     Tablero *partida = new Tablero(configurar());
-    bienvenida();
 
     do
     {
         
         partida->definirCelulasVivas();
 
-        imagenesBitmap(partida);
+        //imagenesBitmap(partida);
 
         partida->imprimirTablero();
-
-        cout << "fin";
-
-        partida->~Tablero();
 
     } while (preguntarTurno(partida) != terminar);
 
