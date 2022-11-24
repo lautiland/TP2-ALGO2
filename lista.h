@@ -216,6 +216,7 @@ T Lista<T>::obtener(unsigned int posicion)
 
         elemento = this->obtenerNodo(posicion)->obtenerDato();
     }
+    
 
     return elemento;
 }

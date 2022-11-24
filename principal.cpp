@@ -104,18 +104,65 @@ AccionTurno preguntarTurno(Tablero *partida)
     }
 };
 
+int imagenesBitmap(Tablero *tablero)
+{
+    char pagina;
+    for (unsigned int i = 0; i < tablero->getLargo(); i++)
+    {
+        BMP imagen;
+        imagen.SetSize(tablero->getAncho(), tablero->getAlto());
+        imagen.SetBitDepth(8);
+
+        for (unsigned int j = 0; j < imagen.TellWidth() - 1; ++j)
+            for (unsigned int k = 0; k < imagen.TellHeight() - 1; ++k)
+            {
+                imagen(j, k)->Red = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen1();
+                imagen(j, k)->Blue = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen2();
+                imagen(j, k)->Green = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen3();
+            }
+            switch (i)
+            {
+            case 1:
+                pagina = 'a';
+
+                break;
+            case 2:
+                pagina = 'b';
+                break;
+            case 3:
+                pagina = 'c';
+                break;
+            case 4:
+                pagina = 'd';
+                break;
+            case 5:
+                pagina = 'e';
+                break;
+                // la vida es debuggear codigo :'
+            default:
+                break;
+            }
+        imagen.WriteToFile(pagina + ".bmp");
+    };
+
+    return 0;
+};
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int main()
 {
 
     Tablero *partida = new Tablero(configurar());
+    bienvenida();
 
     do
     {
-        bienvenida();
-
+        
         partida->definirCelulasVivas();
+
+        imagenesBitmap(partida);
+
         partida->imprimirTablero();
 
         cout << "fin";

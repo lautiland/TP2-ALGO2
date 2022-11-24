@@ -16,7 +16,7 @@ Celula::Celula(Estado estado = muerto, unsigned int gen1 = 0, unsigned int gen2 
 //  Getters
 
 Estado Celula::getEstado(){
-    return estado;
+    return this->estado;
 }
 unsigned int Celula::getGen1(){
     return this->gen1->getCargaGenetica();
@@ -28,18 +28,20 @@ unsigned int Celula::getGen3(){
     return this->gen3->getCargaGenetica();
 }
 
+
+
 //  Setters
 
 void Celula::setEstado(Estado nuevoEstado = muerto){
     this->estado = nuevoEstado;
     if (nuevoEstado == muerto){
-        setGen1(0);
-        setGen2(0);
-        setGen3(0);
+        this->setGen1(0);
+        this->setGen2(0);
+        this->setGen3(0);
     }else{
-        setGen1(127);
-        setGen2(127);
-        setGen3(127);
+        this->setGen1(127);
+        this->setGen2(127);
+        this->setGen3(127);
     }
 }
 void Celula::setGen1(unsigned int nuevoGen1 = 0){
@@ -54,9 +56,6 @@ void Celula::setGen3(unsigned int nuevoGen3 = 0){
 
 //  Funciones
 
-void Celula::mezclarGenes(){            // agregar lo del archivo AdministradorDeGen.h
-
-}
 void Celula::operator=(Celula nuevaCelula){         //esta funcion permite igualar dos celulas y que se copien los datos
     setEstado(nuevaCelula.getEstado());
     setGen1(nuevaCelula.getGen1());

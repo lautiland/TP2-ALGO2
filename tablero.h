@@ -126,6 +126,8 @@ public:
      * pos: -
      */
     void imprimirTablero();
+
+    void devolverTablero(unsigned int i, unsigned int j, unsigned int k);
 };
 
 #endif /* TABLEROH */

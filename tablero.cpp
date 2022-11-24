@@ -434,18 +434,34 @@ unsigned int Tablero::numeroAleatorio(unsigned int maximo)
     return rand() % maximo + 1;
 };
 
+void Tablero::devolverTablero(unsigned int i, unsigned int j, unsigned int k)
+{
+    if (getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getEstado() == vivo)
+    {
+        cout << 1;
+     }else{
+        cout << 0;
+     }
+}
+
 void Tablero::imprimirTablero()
 {
-    for (unsigned int i = 0; i < getLargo(); i++)
+    
+    for (unsigned int i = 0; i < getAlto(); i++)
     {
         cout << "Pagina numero: " << i << endl;
-        for (unsigned int j = 0; j < getAncho(); j++)
+        getTablero()->obtener(i);
+        for (unsigned int j = 0; j < getLargo(); j++)
         {
-            for (unsigned int k = 0; k < getAlto(); k++)
+            for (unsigned int k = 0; k < getAncho(); k++)
             {
-                cout << "|" << getTablero()->obtener(i)->obtener(j)->obtener(k)->getCelula()->getEstado() << "|";
+                devolverTablero(i, j, k);
+                //cout << "|" <<  << "|";
             };
             cout << endl;
         }
     }
 }
+
+//int(getTablero()->obtener(i)->obtener(j)->obtener(k)->getCelula()->getEstado())
+

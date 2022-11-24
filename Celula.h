@@ -8,8 +8,8 @@
 #include "administradorDeGen.cpp"
 
 enum Estado{
-    vivo,
-    muerto
+    vivo = 0,
+    muerto = 1
 };
 
 class Celula{
@@ -50,8 +50,14 @@ class Celula{
              * pos: -
              */
             unsigned int getGen3();
+              /**
+             * pre: -
+             * pos: -
+             */
 
-        //  Setters
+            int getEstadoInt();
+
+            //  Setters
             /**
              * pre: -
              * pos: -

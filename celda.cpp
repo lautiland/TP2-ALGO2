@@ -4,10 +4,10 @@
 
 Celda::Celda(unsigned int posicionX, unsigned int posicionY, unsigned int posicionZ, Tipo tipo)
 {
-    setPosicionX(posicionX);
-    setPosicionY(posicionY);
-    setPosicionZ(posicionZ);
-    setTipo(tipo);
+    this->setPosicionX(posicionX);
+    this->setPosicionY(posicionY);
+    this->setPosicionZ(posicionZ);
+    this->setTipo(tipo);
 
     this->celula = new Celula(); // es por tema de incluciones de archivos, en visual no anda
 }
@@ -16,23 +16,23 @@ Celda::Celda(unsigned int posicionX, unsigned int posicionY, unsigned int posici
 
 unsigned int Celda::getPosicionX()
 {
-    return posicionX;
+    return this->posicionX;
 }
 unsigned int Celda::getPosicionY()
 {
-    return posicionY;
+    return this->posicionY;
 }
 unsigned int Celda::getPosicionZ()
 {
-    return posicionZ;
+    return this->posicionZ;
 }
 Tipo Celda::getTipo()
 {
-    return tipo;
+    return this->tipo;
 }
 Celula *Celda::getCelula()
 {
-    return celula;
+    return this->celula;
 }
 
 //  Setters
@@ -58,10 +58,10 @@ void Celda::setTipo(Tipo nuevoTipo = estandar)
 
 void Celda::operator=(Celda nuevaCelda)
 { // esta funcion permite igualar dos celdas y que se copien sus datos
-    setPosicionX(nuevaCelda.getPosicionX());
-    setPosicionY(nuevaCelda.getPosicionY());
-    setPosicionZ(nuevaCelda.getPosicionZ());
-    setTipo(nuevaCelda.getTipo());
+    this->setPosicionX(nuevaCelda.getPosicionX());
+    this->setPosicionY(nuevaCelda.getPosicionY());
+    this->setPosicionZ(nuevaCelda.getPosicionZ());
+    this->setTipo(nuevaCelda.getTipo());
     this->celula = nuevaCelda.getCelula();
 }
 void Celda::actualizarEstadoCelula(unsigned int celulasVecinas, unsigned int x1, unsigned int x2, unsigned int x3, Lista<Celda *> *listaVecinasVivas)

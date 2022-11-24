@@ -1,6 +1,10 @@
 #ifndef PRINCIPAL_H
 #define PRINCIPAL_H
 
+#include "EasyBMP.h"
+#include "EasyBMP.cpp"
+
+
 //------------->
 
 enum AccionTurno{
