@@ -59,7 +59,7 @@ void eliminarArchivosBitmap(Tablero* partida){
         remove(pagina);
     }
 }
-//------------------------>
+
 AccionTurno preguntarTurno(Tablero *partida)
 {
     int respuesta;
@@ -144,6 +144,7 @@ int main()
         partida->definirCelulasVivas();
         imagenesBitmap(partida);
         partida->imprimirTablero();
+        partida->getTurno()->imprimirTurno();
 
         sigTurno = preguntarTurno(partida);
 
@@ -152,10 +153,11 @@ int main()
             partida->resolverTurno();
             imagenesBitmap(partida);
             partida->imprimirTablero();
+            partida->getTurno()->imprimirTurno();
             sigTurno = preguntarTurno(partida);
         }
 
-    }while (sigTurno == reiniciar);
+    }while ((sigTurno == reiniciar) && (sigTurno != terminar));
 
 
     return 0;
