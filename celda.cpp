@@ -66,15 +66,12 @@ void Celda::operator=(Celda nuevaCelda)
 }
 void Celda::actualizarEstadoCelula(unsigned int celulasVecinas, unsigned int x1, unsigned int x2, unsigned int x3, Lista<Celda *> *listaVecinasVivas)
 {
-    /*
-
+    
     if (getTipo() == procreadora)
     {
         x1 = x1 - 1;
     };
     
-    */
-
     if ((celulasVecinas == x1) && (getCelula()->getEstado() == muerto) && (getTipo() != contaminada))
     {
         getCelula()->setEstado(vivo);
