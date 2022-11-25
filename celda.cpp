@@ -1,4 +1,5 @@
 #include "celda.h"
+#include <iostream>
 
 //  Constructores y destructores
 
@@ -66,17 +67,22 @@ void Celda::operator=(Celda nuevaCelda)
 }
 void Celda::actualizarEstadoCelula(unsigned int celulasVecinas, unsigned int x1, unsigned int x2, unsigned int x3, Lista<Celda *> *listaVecinasVivas)
 {
+    /*
 
     if (getTipo() == procreadora)
     {
         x1 = x1 - 1;
     };
+    
+    */
+
     if ((celulasVecinas == x1) && (getCelula()->getEstado() == muerto) && (getTipo() != contaminada))
     {
+        std::cout << "asd" << std::endl;
         getCelula()->setEstado(vivo);
         actualizaGenesCelula(listaVecinasVivas);
     }
-    else if ((celulasVecinas < x2 && celulasVecinas > x3) && (getCelula()->getEstado() == vivo))
+    else if ((celulasVecinas < x2 || celulasVecinas > x3) && (getCelula()->getEstado() == vivo))
     {
         getCelula()->setEstado(muerto);
     };
@@ -84,13 +90,13 @@ void Celda::actualizarEstadoCelula(unsigned int celulasVecinas, unsigned int x1,
 
 void Celda::actualizaGenesCelula(Lista<Celda *> *listaVecinasVivas)
 {
-    if (listaVecinasVivas = NULL)
+    if (listaVecinasVivas == NULL)
     {
         throw "no se pueden cambiar los genes si no tengo una lista de progenitoras";
     }
     if (this->getCelula()->getEstado() == vivo)
     {
-        for (int i = 0; i < listaVecinasVivas->contarElementos(); i++)
+        for (unsigned int i = 0; i < listaVecinasVivas->contarElementos(); i++)
         {
             AdministradorDeGen *nuevoGen = new AdministradorDeGen(255);
             switch (i)

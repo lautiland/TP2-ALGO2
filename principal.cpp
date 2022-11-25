@@ -19,28 +19,6 @@ void bienvenida()
          << endl;
 }
 
-void resolverTurno(Tablero *tablero)
-{
-    Tablero *temp = new Tablero(tablero);
-
-    for (unsigned int i = 0; i < tablero->getLargo(); i++)
-    {
-        for (unsigned int j = 0; j < tablero->getAncho(); j++)
-        {
-            for (unsigned int k = 0; k < tablero->getAlto(); k++)
-            {
-
-                tablero->contadorCelulasVecinas(i, j, k, temp);
-                tablero->getTurno()->setPromedioNacidas(tablero->getTurno()->getRenacidasEnTurno());
-                tablero->getTurno()->setPromedioMuertas(tablero->getTurno()->getMuertasEnTurno());
-            }
-        }
-    }
-    tablero->getTurno()->comparacionDeTurnos(temp->getTurno());
-    tablero = temp;
-    delete temp;
-}
-
 ModoDeJuego configurar()
 {
     ModoDeJuego configuracion;
@@ -78,11 +56,12 @@ ModoDeJuego configurar()
 AccionTurno preguntarTurno(Tablero *partida)
 {
     int respuesta;
-    std::cout << "Indique la accion deseada para el siguiente turno: " << std::endl;
-    std::cout << "1: Continuar el juego." << std::endl;
-    std::cout << "2: Reiniciar la partida." << std::endl;
-    std::cout << "3: Terminar el juego." << std::endl;
-    std::cin >> respuesta;
+    cout << "Indique la accion deseada para el siguiente turno: " << endl;
+    cout << "1: Continuar el juego." << endl;
+    cout << "2: Reiniciar la partida." << endl;
+    cout << "3: Terminar el juego." << endl << endl;
+    cin >> respuesta;
+    cout << endl;
     switch (respuesta)
     {
     case 1:
@@ -91,10 +70,10 @@ AccionTurno preguntarTurno(Tablero *partida)
         break;
     case 2:
         partida->~Tablero();
-        partida = new Tablero(configurar());
         return reiniciar;
         break;
     case 3:
+        partida->~Tablero();
         return terminar;
         break;
 
@@ -106,27 +85,30 @@ AccionTurno preguntarTurno(Tablero *partida)
 
 int imagenesBitmap(Tablero *tablero)
 {
-    char nombre[5];
-    const char * pagina = &nombre[0];
     for (unsigned int i = 0; i < tablero->getLargo(); i++)
     {
         BMP imagen;
-        imagen.SetSize(tablero->getAncho(), tablero->getAlto());
+        imagen.SetSize(tablero->getAncho()*32, tablero->getAlto()*32);
         imagen.SetBitDepth(8);
 
-        for (unsigned int j = 0; j < imagen.TellWidth(); ++j)
-            for (unsigned int k = 0; k < imagen.TellHeight(); ++k)
+        for (unsigned int j = 0; j < tablero->getAncho(); j++)
+            for (unsigned int k = 0; k < tablero->getAlto(); k++)
             {
-                imagen(j, k)->Red = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen1();
-                imagen(j, k)->Blue = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen2();
-                imagen(j, k)->Green = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen3();
+                for (unsigned int l = 0; l < 32; l++){
+
+                    for (unsigned int m = 0; m < 32; m++){
+                        imagen(j+l, k+m)->Red = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen1();
+                        imagen(j+l, k+m)->Blue = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen2();
+                        imagen(j+l, k+m)->Green = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen3();
+
+                    }
+
+                }
                 
             }
-        nombre[0] = char(65+i);
-        nombre[1] = '.';
-        nombre[2] = 'b';
-        nombre[3] = 'm';
-        nombre[4] = 'p';
+        char nombre[] = {'P', 'a', 'g', 'i', 'n', 'a', '_', char(49+i), '.', 'b', 'm', 'p', '\0'};
+        const char * pagina = &nombre[0];
+
         imagen.WriteToFile(pagina);
     };
     
@@ -138,20 +120,27 @@ int imagenesBitmap(Tablero *tablero)
 
 int main()
 {
-    bienvenida();
+    AccionTurno sigTurno;
+    do{
+        bienvenida();
 
-    Tablero *partida = new Tablero(configurar());
+        Tablero *partida = new Tablero(configurar());
 
-    do
-    {
-        
         partida->definirCelulasVivas();
-
-        //imagenesBitmap(partida);
-
+        imagenesBitmap(partida);
         partida->imprimirTablero();
 
-    } while (preguntarTurno(partida) != terminar);
+        sigTurno = preguntarTurno(partida);
+
+        while (sigTurno == continuar){
+
+            partida->resolverTurno();
+            imagenesBitmap(partida);
+            partida->imprimirTablero();
+            sigTurno = preguntarTurno(partida);
+        }
+
+    }while (sigTurno == reiniciar);
 
     return 0;
 }

@@ -50,6 +50,13 @@ Tablero::Tablero(ModoDeJuego configuracion)
 Tablero::Tablero(Tablero *tableroOriginal)
 {
     this->tablero = new Lista<Lista<Lista<Celda *> *> *>();
+    this->alto = tableroOriginal->getAlto();
+    this->ancho = tableroOriginal->getAncho();
+    this->largo = tableroOriginal->getLargo();
+    this->X1 = tableroOriginal->getX1();
+    this->X2 = tableroOriginal->getX2();
+    this->X3 = tableroOriginal->getX3();
+    this->turno = tableroOriginal->getTurno();
 
     for (unsigned int i = 0; i < tableroOriginal->getLargo(); i++)
     {
@@ -59,8 +66,8 @@ Tablero::Tablero(Tablero *tableroOriginal)
             Lista<Celda *> *columna = new Lista<Celda *>(); // crea la columna
             for (unsigned int k = 0; k < tableroOriginal->getAlto(); k++)
             {
-                Celda *fila = new Celda(i, j, k, tableroOriginal->getTablero()->obtener(i)->obtener(j)->obtener(k)->getTipo()); // crea la fila
-
+                Celda *fila = new Celda(i, j, k, tableroOriginal->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getTipo()); // crea la fila
+                *fila = *tableroOriginal->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1);
                 columna->agregar(fila);
             }
             pagina->agregar(columna); // agregar la columna a la página
@@ -108,17 +115,17 @@ void Tablero::setConfiguracion(ModoDeJuego configuracion)
         this->alto = 10;
         this->ancho = 10;
         this->largo = 10;
-        this->X1 = 4;
-        this->X2 = 3;
-        this->X3 = 5;
+        this->X1 = 3;
+        this->X2 = 2;
+        this->X3 = 4;
         break;
     case configuracion3:
         this->alto = 20;
         this->ancho = 20;
         this->largo = 20;
-        this->X1 = 5;
-        this->X2 = 4;
-        this->X3 = 6;
+        this->X1 = 3;
+        this->X2 = 2;
+        this->X3 = 4;
         break;
     }
 }
@@ -331,7 +338,7 @@ void Tablero::definirCelulasVivas()
          << endl;
 }
 
-void Tablero::contadorCelulasVecinas(unsigned int fila, unsigned int columna, unsigned int pagina, Tablero *temp)
+void Tablero::contadorCelulasVecinas(unsigned int pagina, unsigned int columna, unsigned int fila, Tablero *temp)
 { // x1: cels nesesarias para nacer; x2 y x3: cels para permanecer viva; en otro caso mueren
     int vecinasVivas = 0;
     unsigned int vecinaX;
@@ -339,61 +346,70 @@ void Tablero::contadorCelulasVecinas(unsigned int fila, unsigned int columna, un
     unsigned int vecinaZ;
     Lista<Celda *> *listaVecinasVivas = new Lista<Celda *>;
 
-    Celda *celdaCentro = this->tablero->obtener(fila)->obtener(columna)->obtener(pagina);
+    Celda *celdaCentro = this->tablero->obtener(pagina)->obtener(columna)->obtener(fila);
 
     for (int i = -1; i <= 1; i++)
     {
         for (int j = -1; j <= 1; j++)
         {
-            for (int k = -1; k < 1; ++k)
+            for (int k = -1; k <= 1; ++k)
             {
-                if ((int(fila) + i) == -1)
+
+                if ((int(pagina) + i) == 0)
                 {
-                    vecinaX = getLargo();
+                    vecinaZ = getLargo();
                 }
-                else if ((int(fila) + i) == (int(getLargo()) + 1))
+                else if ((int(pagina) + i) == (int(getLargo()) + 1))
                 {
-                    vecinaX = 0;
+                    vecinaZ = 1;
                 }
                 else
                 {
-                    vecinaX = int(fila) + i;
+                    vecinaZ = int(pagina) + i;
                 }
 
-                if ((int(columna) + i) == -1)
+                //--------------------------------------------------//
+
+                if ((int(columna) + j) == 0)
                 {
                     vecinaY = getAncho();
                 }
-                else if ((int(columna) + i) == (int(getAncho()) + 1))
+                else if ((int(columna) + j) == (int(getAncho()) + 1))
                 {
-                    vecinaY = 0;
+                    vecinaY = 1;
                 }
                 else
                 {
-                    vecinaY = int(columna) + i;
+                    vecinaY = int(columna) + j;
                 }
 
-                if ((int(pagina) + i) == -1)
+                //--------------------------------------------------//
+
+                if ((int(fila) + k) == 0)
                 {
-                    vecinaY = getAlto();
+                    vecinaX = getAlto();
                 }
-                else if ((int(pagina) + i) == (int(getAlto()) + 1))
+                else if ((int(fila) + k) == (int(getAlto()) + 1))
                 {
-                    vecinaY = 0;
+                    vecinaX = 1;
                 }
                 else
                 {
-                    vecinaY = int(pagina) + i;
+                    vecinaX = int(fila) + k;
                 }
+
+
 
                 if (!(i == 0 && j == 0 && k == 0))
-                {
-                    if (this->tablero->obtener(vecinaX)->obtener(vecinaY)->obtener(vecinaZ)->getCelula()->getEstado() == vivo)
+                {   
+
+                    if (this->tablero->obtener(vecinaZ)->obtener(vecinaY)->obtener(vecinaX)->getCelula()->getEstado() == vivo)
                     {
                         vecinasVivas++;
                         if (listaVecinasVivas->contarElementos() < getX1())
                         {
-                            listaVecinasVivas->agregar(this->tablero->obtener(vecinaX)->obtener(vecinaY)->obtener(vecinaZ));
+                            listaVecinasVivas->agregar(this->tablero->obtener(vecinaZ)->obtener(vecinaY)->obtener(vecinaX));
+
                         }
                     }
                 }
@@ -439,9 +455,49 @@ void Tablero::devolverTablero(unsigned int i, unsigned int j, unsigned int k)
     if (getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getEstado() == vivo)
     {
         cout << 1 << " ";
-     }else{
+    }else{
         cout << 0 << " ";
-     }
+    }
+}
+
+void Tablero::resolverTurno()
+{
+    Tablero *temp = new Tablero(this);
+
+    for (unsigned int i = 0; i < temp->getLargo(); i++)
+    {
+        for (unsigned int j = 0; j < temp->getAncho(); j++)
+        {
+            for (unsigned int k = 0; k < temp->getAlto(); k++)
+            {
+                
+                contadorCelulasVecinas(i+1, j+1, k+1, temp);
+                getTurno()->setPromedioNacidas(getTurno()->getRenacidasEnTurno());
+                getTurno()->setPromedioMuertas(getTurno()->getMuertasEnTurno());
+            }
+        }
+    }
+
+
+    getTurno()->comparacionDeTurnos(temp->getTurno());
+
+    
+    Lista<Lista<Lista<Celda *> *> *> * aux = getTablero();
+    this->tablero = temp->getTablero();
+
+    aux->iniciarCursor();
+    while (aux->avanzarCursor())
+    {
+        Lista<Lista<Celda *> *> *temp2 = aux->obtenerCursor();
+        temp2->iniciarCursor();
+        while (temp2->avanzarCursor())
+        {
+            delete temp2->obtenerCursor();
+        }
+        delete temp2;
+    }
+    delete aux;
+
 }
 
 void Tablero::imprimirTablero()

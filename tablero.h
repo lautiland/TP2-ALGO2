@@ -121,6 +121,7 @@ public:
      * pos: -
      */
     unsigned int numeroAleatorio(unsigned int maximo);
+    void resolverTurno();
     /**
      * pre: -
      * pos: -

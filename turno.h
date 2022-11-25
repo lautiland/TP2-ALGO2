@@ -43,7 +43,7 @@ public:
 	void setPromedioNacidas(unsigned int nuevoPromedioNacidas);
 	void setPromedioMuertas(unsigned int nuevoPromedioMuertas);
 	void setEjecucion(Ejecucion nuevoEjecucion);
-	Ejecucion comparacionDeTurnos(Turno *otroTurno);
+	void comparacionDeTurnos(Turno *otroTurno);
 	// funciones:
 	void siguienteTurno();
 };

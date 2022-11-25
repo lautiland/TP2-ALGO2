@@ -90,17 +90,10 @@ void Turno::siguienteTurno()
 	this->renacidasEnTurno = 0;
 	this->muertasEnTurno = 0;
 }
-Ejecucion Turno::comparacionDeTurnos(Turno *otroTurno)
+void Turno::comparacionDeTurnos(Turno *otroTurno)
 {
-	Ejecucion resultado;
 	if (getTotalVivas() == otroTurno->getTotalVivas() && getTotalMuertas() == otroTurno->getTotalMuertas() && getRenacidasEnTurno() == otroTurno->getRenacidasEnTurno() && getMuertasEnTurno() == otroTurno->getMuertasEnTurno())
 	{
-		resultado = congelado;
+		setEjecucion(congelado);
 	}
-	else
-	{
-		resultado = ejecucion;
-	}
-
-	return resultado;
 };
