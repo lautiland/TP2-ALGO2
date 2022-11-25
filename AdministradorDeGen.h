@@ -16,28 +16,29 @@ private:
 public:
     //  Constructores y destructor
         /**
-         * pre:
-         * pos:
+         * pre: maximoDeCargaGenetica tiene que ser mayor a 0.
+         * pos: setea el indice en 1 y el maximo de la carga genetica
          */
         AdministradorDeGen(unsigned int maximoDeCargaGenetica);
 
         /**
          * pre: -
-         * pos: -
+         * pos: elimina la memoria dinamica del administrador de gen.
          */
         virtual ~AdministradorDeGen();
 
     //  Getters
+
         /**
          * pre: -
-         * pos: -
+         * pos: devuelve el indice del aministrador de gen
          */
         unsigned int getIndice();
 
     //  Setters
         /**
          * pre: -
-         * pos: -
+         * pos: le suma 1 a el indice del administrador de gen
          */
         void setMasUnoIndice();
 
