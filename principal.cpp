@@ -85,28 +85,32 @@ AccionTurno preguntarTurno(Tablero *partida)
 
 int imagenesBitmap(Tablero *tablero)
 {
+    unsigned int bits = 32;
     for (unsigned int i = 0; i < tablero->getLargo(); i++)
     {
         BMP imagen;
-        imagen.SetSize(tablero->getAncho()*32, tablero->getAlto()*32);
+        imagen.SetSize(tablero->getAncho()*bits, tablero->getAlto()*bits);
         imagen.SetBitDepth(8);
 
         for (unsigned int j = 0; j < tablero->getAncho(); j++)
+        {
             for (unsigned int k = 0; k < tablero->getAlto(); k++)
             {
-                for (unsigned int l = 0; l < 32; l++){
-
-                    for (unsigned int m = 0; m < 32; m++){
-                        imagen(j+l, k+m)->Red = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen1();
-                        imagen(j+l, k+m)->Blue = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen2();
-                        imagen(j+l, k+m)->Green = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen3();
+                for (unsigned int l = 0; l < 32; l++)
+                {
+                    for (unsigned int m = 0; m < 32; m++)
+                    {
+                        imagen((j*bits)+l, (k*bits)+m)->Red = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen1();
+                        imagen((j*bits)+l, (k*bits)+m)->Blue = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen2();
+                        imagen((j*bits)+l, (k*bits)+m)->Green = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen3();
 
                     }
 
                 }
                 
             }
-        char nombre[] = {'P', 'a', 'g', 'i', 'n', 'a', '_', char(49+i), '.', 'b', 'm', 'p', '\0'};
+        }
+        char nombre[] = {'p', 'a', 'g', 'i', 'n', 'a', '_', char(48+(i%100/10)), char(48+(i%10/1)), '.', 'b', 'm', 'p', '\0'};
         const char * pagina = &nombre[0];
 
         imagen.WriteToFile(pagina);
@@ -121,6 +125,7 @@ int imagenesBitmap(Tablero *tablero)
 int main()
 {
     AccionTurno sigTurno;
+
     do{
         bienvenida();
 
