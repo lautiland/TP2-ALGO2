@@ -127,7 +127,10 @@ public:
      * pos: -
      */
     void imprimirTablero();
-
+    /**
+    * pre: -
+    * pos: -
+    */
     void devolverTablero(unsigned int i, unsigned int j, unsigned int k);
 };
 
