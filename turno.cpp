@@ -97,3 +97,13 @@ void Turno::comparacionDeTurnos(Turno *otroTurno)
 		setEjecucion(congelado);
 	}
 };
+
+void Turno::imprimirTurno(){
+    cout << "Turno Nº: " << this->getNumeroDeTurno() << endl;
+    cout << "Total Vivas: " << this->getTotalVivas() << endl;
+    cout << "Total Muertas: " << this->getTotalMuertas() << endl;
+    cout << "Renacidas en el turno: " << this->getRenacidasEnTurno() << endl;
+    cout << "Muertas en el turno: " << this->getMuertasEnTurno() << endl;
+    cout << "Promedio de Celulas Nacidas: " << this->getPromedioNacidas()  << endl;
+    cout << "Promedio de Celulas Muertas: " << this->getPromedioMuertas()  << endl;
+}
