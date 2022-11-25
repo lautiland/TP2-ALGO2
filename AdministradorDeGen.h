@@ -46,7 +46,7 @@ public:
      * pre: que los genes no sean nulos
      * pos: devuelve un gen con maximoDeCargaGenetica en "maximoDeCargaGenetica" y cargaGenetica como el promedio
      */
-    Gen generar(Gen gen1, Gen gen2, Gen gen3);
+    Gen generar(unsigned int gen1, unsigned int gen2, unsigned int gen3);
 
     
 };

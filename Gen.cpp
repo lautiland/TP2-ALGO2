@@ -41,14 +41,10 @@ void Gen::setCargaGenetica(unsigned int cargaGenetica)
 
 unsigned int Gen::verificar(unsigned int maximoDeCargaGenetica, unsigned int cargaGenetica)
 {
-    if (maximoDeCargaGenetica < 0)
+    if (maximoDeCargaGenetica == 0)
     {
-        throw "El maximo de Carga Genetica no puede ser menor a 0";
+        throw "El maximo de Carga Genetica no puede ser 0";
     }
-    if (cargaGenetica < 0)
-    {
-        cargaGenetica = 0;
-    };
     if (maximoDeCargaGenetica < cargaGenetica)
     {
         cargaGenetica = maximoDeCargaGenetica;

@@ -24,7 +24,7 @@ unsigned int AdministradorDeGen::getIndice()
 
 void AdministradorDeGen::setMasUnoIndice()
 {
-    if (getIndice() == 3)
+    if (getIndice() == 4)
     {
         this->indice = 1;
     }
@@ -36,18 +36,24 @@ void AdministradorDeGen::setMasUnoIndice()
 
 //  Funciones
 
-Gen AdministradorDeGen::generar(Gen gen1, Gen gen2, Gen gen3)
+Gen AdministradorDeGen::generar(unsigned int gen1, unsigned int gen2, unsigned int gen3)
 {
     // validar que los gen no sean nulos
     Gen* resultado = new Gen(this->maximoDeCargaGenetica);
     switch (getIndice())
     {
     case 1:
-        resultado->setCargaGenetica((gen1.getCargaGenetica() + gen2.getCargaGenetica() + gen3.getCargaGenetica()) / 3);
+        resultado->setCargaGenetica((gen1 + gen2 + gen3) / 3);
+        break;
     case 2:
-        resultado->setCargaGenetica((gen1.getCargaGenetica() / 2 + gen2.getCargaGenetica()));
+        resultado->setCargaGenetica((gen1 / 2 + (gen2 % gen3)));
+        break;
     case 3:
-        resultado->setCargaGenetica((gen1.getCargaGenetica() * 2 - gen2.getCargaGenetica() / 2 + gen3.getCargaGenetica()));
+        resultado->setCargaGenetica((gen1 * 2 - gen2 / 2 + gen3));
+        break;
+    case 4:
+        resultado->setCargaGenetica((gen1 % gen2 / 2 + gen3));
+        break;
     };
     setMasUnoIndice();
 

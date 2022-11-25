@@ -52,6 +52,13 @@ ModoDeJuego configurar()
     return configuracion;
 }
 
+void eliminarArchivosBitmap(Tablero* partida){
+    for (unsigned int i = 0; i < partida->getAlto(); i++){
+        char nombre[] = {'p', 'a', 'g', 'i', 'n', 'a', '_', char(48+(i%100/10)), char(48+(i%10/1)), '.', 'b', 'm', 'p', '\0'};
+        const char * pagina = &nombre[0];
+        remove(pagina);
+    }
+}
 //------------------------>
 AccionTurno preguntarTurno(Tablero *partida)
 {
@@ -69,10 +76,12 @@ AccionTurno preguntarTurno(Tablero *partida)
         return continuar;
         break;
     case 2:
+        eliminarArchivosBitmap(partida);
         partida->~Tablero();
         return reiniciar;
         break;
     case 3:
+        eliminarArchivosBitmap(partida);
         partida->~Tablero();
         return terminar;
         break;
@@ -86,23 +95,23 @@ AccionTurno preguntarTurno(Tablero *partida)
 int imagenesBitmap(Tablero *tablero)
 {
     unsigned int bits = 32;
-    for (unsigned int i = 0; i < tablero->getLargo(); i++)
+    for (unsigned int i = 0; i < tablero->getAlto(); i++)
     {
         BMP imagen;
-        imagen.SetSize(tablero->getAncho()*bits, tablero->getAlto()*bits);
+        imagen.SetSize(tablero->getAncho()*bits, tablero->getLargo()*bits);
         imagen.SetBitDepth(8);
 
         for (unsigned int j = 0; j < tablero->getAncho(); j++)
         {
-            for (unsigned int k = 0; k < tablero->getAlto(); k++)
+            for (unsigned int k = 0; k < tablero->getLargo(); k++)
             {
                 for (unsigned int l = 0; l < 32; l++)
                 {
                     for (unsigned int m = 0; m < 32; m++)
                     {
                         imagen((j*bits)+l, (k*bits)+m)->Red = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen1();
-                        imagen((j*bits)+l, (k*bits)+m)->Blue = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen2();
                         imagen((j*bits)+l, (k*bits)+m)->Green = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen3();
+                        imagen((j*bits)+l, (k*bits)+m)->Blue = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen2();
 
                     }
 
@@ -119,6 +128,7 @@ int imagenesBitmap(Tablero *tablero)
 
     return 0;
 };
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -146,6 +156,7 @@ int main()
         }
 
     }while (sigTurno == reiniciar);
+
 
     return 0;
 }

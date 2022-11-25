@@ -403,12 +403,12 @@ void Tablero::contadorCelulasVecinas(unsigned int pagina, unsigned int columna, 
                 if (!(i == 0 && j == 0 && k == 0))
                 {   
 
-                    if (this->tablero->obtener(vecinaZ)->obtener(vecinaY)->obtener(vecinaX)->getCelula()->getEstado() == vivo)
+                    if (getTablero()->obtener(vecinaZ)->obtener(vecinaY)->obtener(vecinaX)->getCelula()->getEstado() == vivo)
                     {
                         vecinasVivas++;
                         if (listaVecinasVivas->contarElementos() < getX1())
                         {
-                            listaVecinasVivas->agregar(this->tablero->obtener(vecinaZ)->obtener(vecinaY)->obtener(vecinaX));
+                            listaVecinasVivas->agregar(getTablero()->obtener(vecinaZ)->obtener(vecinaY)->obtener(vecinaX));
 
                         }
                     }

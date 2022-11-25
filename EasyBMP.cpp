@@ -19,7 +19,6 @@
 *************************************************/
 
 #include "EasyBMP.h"
-#include <iostream>
 
 /* These functions are defined in EasyBMP.h */
 
@@ -438,7 +437,6 @@ bool BMP::WriteToFile( const char* FileName )
   return false; 
  }
  
- std::cout << FileName << endl;
  FILE* fp = fopen( FileName, "wb" );
  if( fp == NULL )
  {
