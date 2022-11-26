@@ -115,17 +115,17 @@ void Tablero::setConfiguracion(ModoDeJuego configuracion)
         this->alto = 10;
         this->ancho = 10;
         this->largo = 10;
-        this->X1 = 3;
-        this->X2 = 2;
-        this->X3 = 4;
+        this->X1 = 2;
+        this->X2 = 1;
+        this->X3 = 5;
         break;
     case configuracion3:
         this->alto = 20;
         this->ancho = 20;
         this->largo = 20;
-        this->X1 = 3;
-        this->X2 = 2;
-        this->X3 = 4;
+        this->X1 = 1;
+        this->X2 = 1;
+        this->X3 = 6;
         break;
     }
 }

@@ -1,4 +1,6 @@
 #include "turno.h"
+#include <iostream>
+using namespace std;
 
 Turno::Turno()
 {
