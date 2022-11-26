@@ -5,7 +5,7 @@
  *      Author: algo2
  */
 
-#include "gen.h"
+#include "Gen.h"
 
 Gen::Gen(unsigned int maximoDeCargaGenetica)
 {

@@ -1,7 +1,7 @@
 #ifndef LISTA_H_
 #define LISTA_H_
 
-#include "nodo.h"
+#include "Nodo.h"
 
 /*
  * Una Lista es una colección dinámica de elementos dispuestos en una secuencia.
@@ -216,7 +216,7 @@ T Lista<T>::obtener(unsigned int posicion)
 
         elemento = this->obtenerNodo(posicion)->obtenerDato();
     }
-    
+
 
     return elemento;
 }

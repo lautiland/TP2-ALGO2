@@ -56,9 +56,3 @@ void Celula::setGen3(unsigned int nuevoGen3 = 0){
 
 //  Funciones
 
-void Celula::operator=(Celula nuevaCelula){         //esta funcion permite igualar dos celulas y que se copien los datos
-    setEstado(nuevaCelula.getEstado());
-    setGen1(nuevaCelula.getGen1());
-    setGen2(nuevaCelula.getGen2());
-    setGen3(nuevaCelula.getGen3());
-}

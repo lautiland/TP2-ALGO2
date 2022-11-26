@@ -52,21 +52,24 @@ ModoDeJuego configurar()
     return configuracion;
 }
 
-void eliminarArchivosBitmap(Tablero* partida){
-    for (unsigned int i = 0; i < partida->getAlto(); i++){
-        char nombre[] = {'p', 'a', 'g', 'i', 'n', 'a', '_', char(48+(i%100/10)), char(48+(i%10/1)), '.', 'b', 'm', 'p', '\0'};
-        const char * pagina = &nombre[0];
+void eliminarArchivosBitmap(Tablero *partida)
+{
+    for (unsigned int i = 0; i < partida->getAlto(); i++)
+    {
+        char nombre[] = {'p', 'a', 'g', 'i', 'n', 'a', '_', char(48 + (i % 100 / 10)), char(48 + (i % 10 / 1)), '.', 'b', 'm', 'p', '\0'};
+        const char *pagina = &nombre[0];
         remove(pagina);
     }
 }
-//------------------------>
+
 AccionTurno preguntarTurno(Tablero *partida)
 {
     int respuesta;
     cout << "Indique la accion deseada para el siguiente turno: " << endl;
     cout << "1: Continuar el juego." << endl;
     cout << "2: Reiniciar la partida." << endl;
-    cout << "3: Terminar el juego." << endl << endl;
+    cout << "3: Terminar el juego." << endl
+         << endl;
     cin >> respuesta;
     cout << endl;
     switch (respuesta)
@@ -98,7 +101,7 @@ int imagenesBitmap(Tablero *tablero)
     for (unsigned int i = 0; i < tablero->getAlto(); i++)
     {
         BMP imagen;
-        imagen.SetSize(tablero->getAncho()*bits, tablero->getLargo()*bits);
+        imagen.SetSize(tablero->getAncho() * bits, tablero->getLargo() * bits);
         imagen.SetBitDepth(8);
 
         for (unsigned int j = 0; j < tablero->getAncho(); j++)
@@ -109,26 +112,21 @@ int imagenesBitmap(Tablero *tablero)
                 {
                     for (unsigned int m = 0; m < 32; m++)
                     {
-                        imagen((j*bits)+l, (k*bits)+m)->Red = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen1();
-                        imagen((j*bits)+l, (k*bits)+m)->Green = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen3();
-                        imagen((j*bits)+l, (k*bits)+m)->Blue = tablero->getTablero()->obtener(i+1)->obtener(j+1)->obtener(k+1)->getCelula()->getGen2();
-
+                        imagen((j * bits) + l, (k * bits) + m)->Red = tablero->getTablero()->obtener(i + 1)->obtener(j + 1)->obtener(k + 1)->getCelula()->getGen1();
+                        imagen((j * bits) + l, (k * bits) + m)->Green = tablero->getTablero()->obtener(i + 1)->obtener(j + 1)->obtener(k + 1)->getCelula()->getGen3();
+                        imagen((j * bits) + l, (k * bits) + m)->Blue = tablero->getTablero()->obtener(i + 1)->obtener(j + 1)->obtener(k + 1)->getCelula()->getGen2();
                     }
-
                 }
-                
             }
         }
-        char nombre[] = {'p', 'a', 'g', 'i', 'n', 'a', '_', char(48+(i%100/10)), char(48+(i%10/1)), '.', 'b', 'm', 'p', '\0'};
-        const char * pagina = &nombre[0];
+        char nombre[] = {'p', 'a', 'g', 'i', 'n', 'a', '_', char(48 + (i % 100 / 10)), char(48 + (i % 10 / 1)), '.', 'b', 'm', 'p', '\0'};
+        const char *pagina = &nombre[0];
 
         imagen.WriteToFile(pagina);
     };
-    
 
     return 0;
 };
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -136,27 +134,31 @@ int main()
 {
     AccionTurno sigTurno;
 
-    do{
+    do
+    {
         bienvenida();
 
         Tablero *partida = new Tablero(configurar());
 
         partida->definirCelulasVivas();
+
         imagenesBitmap(partida);
         partida->imprimirTablero();
 
+        partida->getTurno()->imprimirTurno();
         sigTurno = preguntarTurno(partida);
 
-        while (sigTurno == continuar){
+        while (sigTurno == continuar)
+        {
 
             partida->resolverTurno();
             imagenesBitmap(partida);
             partida->imprimirTablero();
+            partida->getTurno()->imprimirTurno();
             sigTurno = preguntarTurno(partida);
         }
 
-    }while (sigTurno == reiniciar);
-
+    } while ((sigTurno == reiniciar) && (sigTurno != terminar));
 
     return 0;
 }

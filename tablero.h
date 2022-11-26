@@ -41,7 +41,7 @@ public:
      * pre: se pasa por parametro un tablero existente.
      * pos: se crea una copia del tablero original.
      */
-    Tablero(Tablero *tableroOriginal);
+    Tablero(Tablero* taberoOriginal);
     /**
      * pre: -
      * pos: -
@@ -83,7 +83,7 @@ public:
      * pre: -
      * pos: -
      */
-    Turno *getTurno();
+    Turno* getTurno();
     /**
      * pre: -
      * pos: -
@@ -120,6 +120,7 @@ public:
      * pre: -
      * pos: -
      */
+    //void operator=(Tablero nuevoTablero);
     unsigned int numeroAleatorio(unsigned int maximo);
     void resolverTurno();
     /**
@@ -127,7 +128,10 @@ public:
      * pos: -
      */
     void imprimirTablero();
-
+    /**
+    * pre: -
+    * pos: -
+    */
     void devolverTablero(unsigned int i, unsigned int j, unsigned int k);
 };
 

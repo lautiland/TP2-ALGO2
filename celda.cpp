@@ -1,5 +1,4 @@
 #include "celda.h"
-
 //  Constructores y destructores
 
 Celda::Celda(unsigned int posicionX, unsigned int posicionY, unsigned int posicionZ, Tipo tipo)
@@ -9,7 +8,7 @@ Celda::Celda(unsigned int posicionX, unsigned int posicionY, unsigned int posici
     this->setPosicionZ(posicionZ);
     this->setTipo(tipo);
 
-    this->celula = new Celula(); // es por tema de incluciones de archivos, en visual no anda
+    this->celula = new Celula(muerto,0,0,0); // es por tema de incluciones de archivos, en visual no anda
 }
 
 //  Getters
@@ -55,27 +54,15 @@ void Celda::setTipo(Tipo nuevoTipo = estandar)
 }
 
 //  Funciones
-
-void Celda::operator=(Celda nuevaCelda)
-{ // esta funcion permite igualar dos celdas y que se copien sus datos
-    this->setPosicionX(nuevaCelda.getPosicionX());
-    this->setPosicionY(nuevaCelda.getPosicionY());
-    this->setPosicionZ(nuevaCelda.getPosicionZ());
-    this->setTipo(nuevaCelda.getTipo());
-    this->celula = nuevaCelda.getCelula();
-}
 void Celda::actualizarEstadoCelula(unsigned int celulasVecinas, unsigned int x1, unsigned int x2, unsigned int x3, Lista<Celda *> *listaVecinasVivas)
 {
-    /*
-
+	/*
     if (getTipo() == procreadora)
     {
         x1 = x1 - 1;
-    };
-    
-    */
+    };*/
 
-    if ((celulasVecinas == x1) && (getCelula()->getEstado() == muerto) && (getTipo() != contaminada))
+    if ((celulasVecinas == x1) && (getCelula()->getEstado() == muerto)/* && (getTipo() != contaminada)*/)
     {
         getCelula()->setEstado(vivo);
         actualizaGenesCelula(listaVecinasVivas);
@@ -96,8 +83,7 @@ void Celda::actualizaGenesCelula(Lista<Celda *> *listaVecinasVivas)
     {
         AdministradorDeGen *nuevoGen = new AdministradorDeGen(255);
         for (unsigned int i = 0; i < listaVecinasVivas->contarElementos(); i++)
-        {   
-            std::cout << listaVecinasVivas->obtener(i+1)->getCelula()->getGen1() << " " << listaVecinasVivas->obtener(i+1)->getCelula()->getGen2() << " " << listaVecinasVivas->obtener(i+1)->getCelula()->getGen3() << std::endl;
+        {
             switch (i)
             {
             case 1:

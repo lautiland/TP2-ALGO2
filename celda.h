@@ -28,73 +28,76 @@ private:
 
 public:
     //  Constructores y destructor
-    /**
+
+    /*
      * pre: -
-     * pos: -
+     * pos: La celda queda habilitada para controlar el acceso de posicionX, posicionY, posicionZ y el Tipo.
      */
+    Celda(Celda* nuevaCelda);
     Celda(unsigned int posicionX, unsigned int posicionY, unsigned int posicionZ, Tipo tipo);
     // falta hacer el destructor
 
     //  Getters
+
     /**
      * pre: -
-     * pos: -
+     * pos: devuelve el numero de la posicion de fila.
      */
     unsigned int getPosicionX();
     /**
      * pre: -
-     * pos: -
+     * pos: devuelve el numero de la posicion de columna.
      */
     unsigned int getPosicionY();
     /**
      * pre: -
-     * pos: -
+     * pos: devuelve el numero de la posicion de pagina.
      */
     unsigned int getPosicionZ();
     /**
      * pre: -
-     * pos: -
+     * pos: Devuelve el tipo de la celda
      */
     Tipo getTipo();
     /**
      * pre: -
-     * pos: -
+     * pos: Devuelve un puntero a celula.
      */
     Celula *getCelula();
 
     //  Setters
     /**
-     * pre: -
-     * pos: -
+     * pre: nuevaPosicionX debe ser mayor a 0.
+     * pos: Actualiza el numero de la posicion de la Fila.
      */
     void setPosicionX(unsigned int nuevaPosicionX);
     /**
-     * pre: -
-     * pos: -
+     * pre: nuevaPosicionY debe ser mayor a 0.
+     * pos: Actualiza el numero de la posicion de la Columna.
      */
     void setPosicionY(unsigned int nuevaPosicionY);
     /**
-     * pre: -
-     * pos: -
+     * pre: nuevaPosicionZ debe ser mayor a 0.
+     * pos: Actualiza el numero de la posicion de la Pagina.
      */
     void setPosicionZ(unsigned int nuevaPosicionZ);
     /**
      * pre: -
-     * pos: -
+     * pos: Actualiza el tipo de celda.
      */
     void setTipo(Tipo nuevoTipo);
     /**
      * pre: -
-     * pos: -
+     * pos: Actualiza el puntero Celula a una nueva celula.
      */
     void setCelula(Celula nuevaCelula);
 
     //  Funciones
     /**
      * pre: -
-     * pos: -
+     * pos: iguala dos celdas (copia los datos de una Celda con otra pasada por parametro)
      */
-    void operator=(Celda nuevaCelda); // esta funcion permite igualar dos celdas y que se copien sus datos
+    //void operator=(Celda nuevaCelda); // esta funcion permite igualar dos celdas y que se copien sus datos
     /**
      * pre: -
      * pos: -

@@ -1,4 +1,4 @@
-#include "administradorDeGen.h"
+#include "AdministradorDeGen.h"
 
 //  Constructores y destructores
 

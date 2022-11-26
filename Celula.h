@@ -1,7 +1,7 @@
 #ifndef CELULA_H_
 #define CELULA_H_
 
-#include "administradorDeGen.h"
+#include "AdministradorDeGen.h"
 
 //SOLO EN VISUAL
 
@@ -26,7 +26,7 @@ class Celula{
              * pos: -
              */
             Celula(Estado estado, unsigned int gen1, unsigned int gen2, unsigned int gen3);
-            
+
             //falta hacer el destructor
 
         //  Getters
@@ -78,9 +78,9 @@ class Celula{
              * pos: -
              */
             void setGen3(unsigned int nuevoGen3);
-        
+
         //  Funciones
-            
+
             /**
              * pre: -
              * pos: -
@@ -91,9 +91,9 @@ class Celula{
              * pre: -
              * pos: -
              */
-            void operator=(Celula nuevaCelula);
+            //void operator=(Celula nuevaCelula);
 
-            
+
 };
 
 #endif
