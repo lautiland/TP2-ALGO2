@@ -3,186 +3,97 @@
 
 using namespace std;
 
-// las globales son temporales para probar, lo mismo con eso de ancho alto etc
+//  Constructores y destructores
 
 Tablero::Tablero(ModoDeJuego configuracion)
 {
+    if (configuracion == NULL){
+        throw "configuracion no puede ser nula";
+    }
+
     setConfiguracion(configuracion);
+    this->matriz = new Lista<Lista<Lista<Celda *> *> *>();
 
-    // cout << getAlto() << " " << getLargo() << " " <<  getAncho() << endl;
-
-    this->tablero = new Lista<Lista<Lista<Celda *> *> *>();
-
-    for (unsigned int k = 0; k < getAlto(); k++)
-    { // va rellenando el tablero
-
+    for (unsigned int k = 0; k < getAlto(); k++) // va rellenando el tablero
+    {
         Lista<Lista<Celda *> *> *pagina = new Lista<Lista<Celda *> *>(); // crea la pagina
 
-        for (unsigned int j = 0; j < getLargo(); j++)
-        { // va rellenando las paginas
-
+        for (unsigned int j = 0; j < getLargo(); j++) // va rellenando las paginas
+        {
             Lista<Celda *> *columna = new Lista<Celda *>(); // crea la columna
 
-            for (unsigned int i = 0; i < getAncho(); i++)
-            { // va rellenando las columnas
-
+            for (unsigned int i = 0; i < getAncho(); i++) // va rellenando las columnas
+            {
                 Celda *fila = new Celda(i+1, j+1, k+1, estandar); // crea la fila
 
                 columna->agregar(fila); // agrega la fila a la columna
             }
-
             pagina->agregar(columna); // agregar la columna a la página
         }
-
-        this->tablero->agregar(pagina); // agrega la página al tablero
+        this->matriz->agregar(pagina); // agrega la página al tablero
     }
-
-    /*
-    for (unsigned int i = 0; i < numeroAleatorio((int(getAlto()) * int(getLargo()) * int(getAncho()) * 100 / 5)); i++)
-    {
-
-        unsigned int x = numeroAleatorio(getAncho());
-        unsigned int y = numeroAleatorio(getLargo());
-        unsigned int z = numeroAleatorio(getAlto());
-        getTablero()->obtener(z+1)->obtener(y+1)->obtener(x+1)->setTipo(Tipo(numeroAleatorio(6)));
-    };
-    */
-
     this->turno = new Turno();
 }
 
-Tablero::Tablero(Tablero* taberoOriginal)
+Tablero::Tablero(Tablero* tableroOriginal)
 {
-    this->tablero = new Lista<Lista<Lista<Celda *> *> *>();
-    this->alto = taberoOriginal->getAlto();
-    this->ancho = taberoOriginal->getAncho();
-    this->largo = taberoOriginal->getLargo();
-    this->X1 = taberoOriginal->getX1();
-    this->X2 = taberoOriginal->getX2();
-    this->X3 = taberoOriginal->getX3();
-    this->turno = taberoOriginal->getTurno();
+    if (tableroOriginal == NULL){
+        throw "el tablero a copiar no puede ser nulo";
+    }
+    if (tableroOriginal->matrizVacia()){
+        throw "el tablero a copiar no puede estar vacio";
+    }
+
+    this->matriz = new Lista<Lista<Lista<Celda *> *> *>();
+    this->alto = tableroOriginal->getAlto();
+    this->ancho = tableroOriginal->getAncho();
+    this->largo = tableroOriginal->getLargo();
+    this->X1 = tableroOriginal->getX1();
+    this->X2 = tableroOriginal->getX2();
+    this->X3 = tableroOriginal->getX3();
+    this->turno = tableroOriginal->getTurno();
 
      for (unsigned int i = 0; i < getAlto(); i++)
     {
         Lista<Lista<Celda *> *> *pagina = new Lista<Lista<Celda *> *>();
+
         for (unsigned int j = 0; j < getAncho(); j++)
         {
             Lista<Celda *> *columna = new Lista<Celda *>(); // crea la columna
+
             for (unsigned int k = 0; k < getLargo(); k++)
             {
                 Celda *fila = new Celda(i+1, j+1, k+1, estandar);
-                fila->setTipo(taberoOriginal->getTablero()->obtener(i + 1)->obtener(j + 1)->obtener(k + 1)->getTipo());
-                fila->getCelula()->setEstado(taberoOriginal->getTablero()->obtener(i + 1)->obtener(j + 1)->obtener(k + 1)->getCelula()->getEstado());
-                fila->getCelula()->setGen1(taberoOriginal->getTablero()->obtener(i + 1)->obtener(j + 1)->obtener(k + 1)->getCelula()->getGen1());
-                fila->getCelula()->setGen2(taberoOriginal->getTablero()->obtener(i + 1)->obtener(j + 1)->obtener(k + 1)->getCelula()->getGen2());
-                fila->getCelula()->setGen3(taberoOriginal->getTablero()->obtener(i + 1)->obtener(j + 1)->obtener(k + 1)->getCelula()->getGen3());
+
+                fila->setTipo(tableroOriginal->getTablero()->obtener(i + 1)->obtener(j + 1)->obtener(k + 1)->getTipo());
+                fila->getCelula()->setEstado(tableroOriginal->getTablero()->obtener(i + 1)->obtener(j + 1)->obtener(k + 1)->getCelula()->getEstado());
+                fila->getCelula()->setGen1(tableroOriginal->getTablero()->obtener(i + 1)->obtener(j + 1)->obtener(k + 1)->getCelula()->getGen1());
+                fila->getCelula()->setGen2(tableroOriginal->getTablero()->obtener(i + 1)->obtener(j + 1)->obtener(k + 1)->getCelula()->getGen2());
+                fila->getCelula()->setGen3(tableroOriginal->getTablero()->obtener(i + 1)->obtener(j + 1)->obtener(k + 1)->getCelula()->getGen3());
                 
                 columna->agregar(fila);
             }
             pagina->agregar(columna); // agregar la columna a la página
         }
-        this->tablero->agregar(pagina); // agrega la página al tablero
+        this->matriz->agregar(pagina); // agrega la página al tablero
     }
-    
-}
-
-
-Lista<Lista<Lista<Celda *> *> *> *Tablero::getTablero()
-{
-    return this->tablero;
-};
-
-void Tablero::setConfiguracion(ModoDeJuego configuracion)
-{
-    // la idea es que el usuario ponga 2 o 3, que serian las cofig automaticas y la 1 seria la manual
-    // es medio a lo bruto este metodo pero lo puedo pulir si es necesario, es lo primero que se me ocurrió
-    // los numeros que ponemos en los modos automaticos pueden ir en constantes globales ahora que lo pienso
-    switch (configuracion)
-    {
-    case manual:
-        cout << "Ingrese el ancho del tablero deseado: " << endl;
-        cin >> this->ancho;
-        cout << "Ingrese el largo del tablero deseado: " << endl;
-        cin >> this->largo;
-        cout << "Ingrese el alto del tablero deseado: " << endl;
-        cin >> this->alto;
-        cout << "Ingrese la cantidad de celulas vecinas vivas necesarias para que nazca una celula: " << endl;
-        cin >> this->X1;
-        cout << "Ingrese la cantidad de celulas vecinas vivas para que muera una celula por soledad: " << endl;
-        cin >> this->X2;
-        cout << "Ingrese la cantidad maxima de celulas vecinas vivas para que muera una celula por sobrepoblación: " << endl;
-        cin >> this->X3;
-        cout << endl;
-        break;
-
-    case configuracion1:
-        this->alto = 5;
-        this->ancho = 5;
-        this->largo = 5;
-        this->X1 = 3;
-        this->X2 = 2;
-        this->X3 = 4;
-        break;
-    case configuracion2:
-        this->alto = 10;
-        this->ancho = 10;
-        this->largo = 10;
-        this->X1 = 3;
-        this->X2 = 2;
-        this->X3 = 4;
-        break;
-    case configuracion3:
-        this->alto = 20;
-        this->ancho = 20;
-        this->largo = 20;
-        this->X1 = 3;
-        this->X2 = 2;
-        this->X3 = 4;
-        break;
-    }
-}
-
-unsigned int Tablero::getX1()
-{
-    return X1;
-}
-
-unsigned int Tablero::getX2()
-{
-    return X2;
-}
-
-unsigned int Tablero::getX3()
-{
-    return X3;
-}
-
-unsigned int Tablero::getAlto()
-{
-    return this->alto;
-}
-
-unsigned int Tablero::getAncho()
-{
-    return this->ancho;
-}
-
-unsigned int Tablero::getLargo()
-{
-    return this->largo;
-}
-
-Turno* Tablero::getTurno()
-{
-    return turno;
 }
 
 Tablero::~Tablero()
-{
-    this->tablero->iniciarCursor();
-    while (this->tablero->avanzarCursor())
+{   
+    if (this == NULL){
+        throw "el tablero debe estar creado";
+    }
+    if (this->matrizVacia()){
+        throw "el tablero no puede estar vacio";
+    }
+
+    this->matriz->iniciarCursor();
+
+    while (this->matriz->avanzarCursor())
     {
-        Lista<Lista<Celda *> *> *temp = this->tablero->obtenerCursor();
+        Lista<Lista<Celda *> *> *temp = this->matriz->obtenerCursor();
+
         temp->iniciarCursor();
         while (temp->avanzarCursor())
         {
@@ -190,49 +101,188 @@ Tablero::~Tablero()
         }
         delete temp;
     }
-    delete this->tablero;
+    delete this->matriz;
 }
+
+//  Getters
+
+Lista<Lista<Lista<Celda *> *> *> *Tablero::getTablero()
+{
+    if (this->matriz == NULL){
+        throw "la matriz debe estar definida";
+    }
+    return this->matriz;
+}
+
+unsigned int Tablero::getX1()
+{
+    if (this->X1 == NULL){
+        throw "X1 no puede ser nulo";
+    }
+    return X1;
+}
+
+unsigned int Tablero::getX2()
+{
+    if (this->X2 == NULL){
+        throw "X2 no puede ser nulo";
+    }
+    return X2;
+}
+
+unsigned int Tablero::getX3()
+{
+    if (this->X3 == NULL){
+        throw "X3 no puede ser nulo";
+    }
+    return X3;
+}
+
+unsigned int Tablero::getAlto()
+{
+    if (this->alto == NULL){
+        throw "alto no puede ser nulo";
+    }
+    return this->alto;
+}
+
+unsigned int Tablero::getAncho()
+{
+    if (this->ancho == NULL){
+        throw "ancho no puede ser nulo";
+    }
+    return this->ancho;
+}
+
+unsigned int Tablero::getLargo()
+{
+    if (this->largo == NULL){
+        throw "largo no puede ser nulo";
+    }
+    return this->largo;
+}
+
+Turno* Tablero::getTurno()
+{
+    if (this->turno == NULL){
+        throw "turno no puede ser nulo";
+    }
+    return turno;
+}
+
+//  Setters
+
+void Tablero::setConfiguracion(ModoDeJuego configuracion)
+{
+    if (configuracion == NULL){
+        throw "configuracion no puede ser nulo";
+    }
+
+    switch (configuracion)
+    {
+        case manual:
+
+            cout << "Ingrese el ancho del tablero deseado: " << endl;
+            cin >> this->ancho;
+            cout << "Ingrese el largo del tablero deseado: " << endl;
+            cin >> this->largo;
+            cout << "Ingrese el alto del tablero deseado: " << endl;
+            cin >> this->alto;
+            cout << "Ingrese la cantidad de celulas vecinas vivas necesarias para que nazca una celula: " << endl;
+            cin >> this->X1;
+            cout << "Ingrese la cantidad de celulas vecinas vivas para que muera una celula por soledad: " << endl;
+            cin >> this->X2;
+            cout << "Ingrese la cantidad maxima de celulas vecinas vivas para que muera una celula por sobrepoblación: " << endl;
+            cin >> this->X3;
+            cout << endl;
+
+            break;
+        case configuracion1:
+
+            this->alto = 5;
+            this->ancho = 5;
+            this->largo = 5;
+            this->X1 = 3;
+            this->X2 = 2;
+            this->X3 = 4;
+
+            break;
+        case configuracion2:
+
+            this->alto = 10;
+            this->ancho = 10;
+            this->largo = 10;
+            this->X1 = 3;
+            this->X2 = 2;
+            this->X3 = 4;
+
+            break;
+        case configuracion3:
+
+            this->alto = 20;
+            this->ancho = 20;
+            this->largo = 20;
+            this->X1 = 3;
+            this->X2 = 2;
+            this->X3 = 4;
+
+            break;
+    }
+}
+
+//  Funciones
 
 void Tablero::definirCelulasVivas()
 {
+    if (this->matriz == NULL){
+        throw "la matriz debe estar definida";
+    }
+    if (this->matrizVacia()){
+        throw "la matriz no debe estar vacia";
+    }
+    
     int metodo;
-    char otroMetodo;
+    char respuesta;
     do
     {
-
         do
         {
             cout << "Elija el metodo para ingresar celulas vivas: " << endl;
             cout << "1: Ingresar individualmente." << endl;
-            cout << "2: Ingresar por rango." << endl
-                 << endl;
+            cout << "2: Ingresar por rango." << endl << endl;
             cin >> metodo;
             cout << endl;
 
         } while ((metodo != 1) && (metodo != 2));
         if (metodo == 1)
         {
-
             char seguir;
 
             do
             {
                 unsigned int coordenadaX, coordenadaY, coordenadaZ;
+
                 do
                 {
                     cout << "Ingrese la fila: " << endl;
                     cin >> coordenadaX;
+
                 } while ((coordenadaX <= 0) || (coordenadaX > getLargo()));
+
                 do
                 {
                     cout << "Ingrese la columna: " << endl;
                     cin >> coordenadaY;
+
                 } while ((coordenadaY <= 0) || (coordenadaY > getAncho()));
+
                 do
                 {
                     cout << "Ingrese la pagina: " << endl;
                     cin >> coordenadaZ;
+
                 } while ((coordenadaZ <= 0) || (coordenadaZ > getAlto()));
+
                 getTablero()->obtener(coordenadaZ)->obtener(coordenadaY)->obtener(coordenadaX)->getCelula()->setEstado(vivo);
                 getTurno()->sumarViva();
                 cout << "Se ha ingresado con exito la celula (" << coordenadaX << ", " << coordenadaY << ", " << coordenadaZ << ")." << endl;
@@ -240,51 +290,57 @@ void Tablero::definirCelulasVivas()
 
                 do
                 {
-                    cout << "Desea seguir ingresando celulas con este metodo? s/n." << endl
-                         << endl;
+                    cout << "Desea seguir ingresando celulas con este metodo? s/n." << endl << endl;
                     cin >> seguir;
                     cout << endl;
+
                 } while ((seguir != 's') && (seguir != 'n') && (seguir != 'S') && (seguir != 'N'));
 
             } while ((seguir == 's') || (seguir == 'S'));
         }
         else if (metodo == 2)
         {
-
             char seguir;
 
             do
             {
                 unsigned int coordenadaX1, coordenadaY1, coordenadaZ1;
+
                 do
                 {
                     cout << "Ingrese la fila de la primera celula: " << endl;
                     cin >> coordenadaX1;
+
                 } while ((coordenadaX1 <= 0) || (coordenadaX1 > getAncho()));
                 do
                 {
                     cout << "Ingrese la columna de la primera celula: " << endl;
                     cin >> coordenadaY1;
+
                 } while ((coordenadaY1 <= 0) || (coordenadaY1 > getLargo()));
                 do
                 {
                     cout << "Ingrese la pagina de la primera celula: " << endl;
                     cin >> coordenadaZ1;
+
                 } while ((coordenadaZ1 <= 0) || (coordenadaZ1 > getAlto()));
 
                 cout << endl;
 
                 unsigned int coordenadaX2, coordenadaY2, coordenadaZ2;
+
                 do
                 {
                     cout << "Ingrese la fila de la segunda celula: " << endl;
                     cin >> coordenadaX2;
                 } while ((coordenadaX2 <= 0) || (coordenadaX2 > getAncho()));
+
                 do
                 {
                     cout << "Ingrese la columna de la segunda celula: " << endl;
                     cin >> coordenadaY2;
                 } while ((coordenadaY2 <= 0) || (coordenadaY2 > getLargo()));
+
                 do
                 {
                     cout << "Ingrese la fila de la segunda celula: " << endl;
@@ -297,12 +353,14 @@ void Tablero::definirCelulasVivas()
                     coordenadaX1 = coordenadaX2;
                     coordenadaX2 = aux;
                 }
+
                 if (coordenadaY1 > coordenadaY2)
                 {
                     unsigned int aux = coordenadaY1;
                     coordenadaY1 = coordenadaY2;
                     coordenadaY2 = aux;
                 }
+
                 if (coordenadaZ1 > coordenadaZ2)
                 {
                     unsigned int aux = coordenadaZ1;
@@ -328,8 +386,7 @@ void Tablero::definirCelulasVivas()
 
                 do
                 {
-                    cout << "Desea seguir ingresando rangos de celulas con este metodo? s/n." << endl
-                         << endl;
+                    cout << "Desea seguir ingresando rangos de celulas con este metodo? s/n." << endl << endl;
                     cin >> seguir;
                     cout << endl;
 
@@ -342,11 +399,11 @@ void Tablero::definirCelulasVivas()
         {
             cout << "Desea utilizar otro metodo para ingresar celulas? s/n." << endl
                  << endl;
-            cin >> otroMetodo;
+            cin >> respuesta;
             cout << endl;
-        } while ((otroMetodo != 's') && (otroMetodo != 'n') && (otroMetodo != 'S') && (otroMetodo != 'N'));
+        } while ((respuesta != 's') && (respuesta != 'n') && (respuesta != 'S') && (respuesta != 'N'));
 
-    } while ((otroMetodo == 's') || (otroMetodo == 'S'));
+    } while ((respuesta == 's') || (respuesta == 'S'));
 
     cout << "Las celulas fueron ingresadas con exito." << endl
          << endl;
@@ -499,7 +556,7 @@ void Tablero::resolverTurno()
     getTurno()->comparacionDeTurnos(temp->getTurno());
 
     Lista<Lista<Lista<Celda *> *> *> *aux = getTablero();
-    this->tablero = temp->getTablero();
+    this->matriz = temp->getTablero();
 
     aux->iniciarCursor();
     while (aux->avanzarCursor())
@@ -535,4 +592,20 @@ void Tablero::imprimirTablero()
     }
 }
 
-// int(getTablero()->obtener(i)->obtener(j)->obtener(k)->getCelula()->getEstado())
+//  Condiciones
+
+bool Tablero::matrizVacia(){
+    bool resultado = false;
+    if (!getTablero()->estaVacia()){
+        if (!getTablero()->obtener(1)->estaVacia()){
+           if (getTablero()->obtener(1)->obtener(1)->estaVacia()){
+                resultado = true;
+            }
+        }else{
+            resultado = true;
+        }
+    }else{
+        resultado = true;
+    }
+    return resultado;
+}

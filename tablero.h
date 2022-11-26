@@ -21,7 +21,7 @@ enum ModoDeJuego
 class Tablero
 {
 private:
-    Lista<Lista<Lista<Celda *> *> *> *tablero;
+    Lista<Lista<Lista<Celda *> *> *> *matriz;
     Turno *turno;
     unsigned int alto;
     unsigned int largo;
@@ -31,108 +31,140 @@ private:
     unsigned int X3;
 
 public:
+
     //  Constructores y destructores
+
     /**
-     * pre: -
-     * pos: -
+     * pre: configuracion debe estar definido.
+     * pos: inicializa el tablero con su respectiva configuracion.
      */
     Tablero(ModoDeJuego configuracion);
+
     /**
-     * pre: se pasa por parametro un tablero existente.
+     * pre: tableroOriginal debe estar definido y debe ser no vacio.
      * pos: se crea una copia del tablero original.
      */
     Tablero(Tablero* taberoOriginal);
+
     /**
-     * pre: -
-     * pos: -
+     * pre: el tablero debe estar definido y no debe ser vacio.
+     * pos: destruye el tablero creado.
      */
     ~Tablero();
 
+
     //  Getters
+
     /**
-     * pre: -
-     * pos: -
+     * pre: la matriz debe estar creada e inicializada.
+     * pos: devuelve un puntero a la matriz.
      */
     Lista<Lista<Lista<Celda *> *> *> *getTablero();
+
     /**
-     * pre: -
-     * pos: -
+     * pre: X1 debe estar definido.
+     * pos: devuelve el numero de celulas vecinas necesarias para que una celula nazca.
      */
     unsigned int getX1();
+
     /**
-     * pre: -
-     * pos: -
+     * pre: X2 debe estar definido.
+     * pos: devuelve el numero de celulas vecinas vivas necesarias para que muera por soledad.
      */
     unsigned int getX2();
+
     /**
-     * pre: -
-     * pos: -
+     * pre: X3 debe estar definido.
+     * pos: devuelve el numero de celulas vecinas vivas necesarias para que muera por sobrepoblacion.
      */
     unsigned int getX3();
+
     /**
-     * pre: -
-     * pos: -
+     * pre: alto debe estar definido.
+     * pos: devuelve el numero de paginas del tablero.
      */
     unsigned int getAlto();
+
     /**
-     * pre: -
-     * pos: -
+     * pre: ancho debe estar definido.
+     * pos: devuelve el numero de columnas del tablero.
      */
     unsigned int getAncho();
+
     /**
-     * pre: -
-     * pos: -
-     */
-    Turno* getTurno();
-    /**
-     * pre: -
-     * pos: -
+     * pre: largo debe estar definido.
+     * pos: devuelve el numero de filas del tablero.
      */
     unsigned int getLargo();
-    // se me ocurre poner un metodo que meta las celulas onda setCelulas() que cambie el estado de las celulas a vivas
-    // onda que ponga this->estado=Viva, el tema seria ver como hacemos las coordenadas ya que van metidas una por una
-    // o se puede hacer un diccionario o array que vaya guardando lo que meta el usuario y despues leerlo y meterlas asi
+
+    /**
+     * pre: turno no debe ser nulo.
+     * pos: devuelve un puntero a turno.
+     */
+    Turno* getTurno();
+    
 
     //  Setters
+
     /**
-     * pre: -
-     * pos: -
+     * pre: configuracion no debe ser nulo
+     * pos: configura los distintos modos de juego
      */
     void setConfiguracion(ModoDeJuego configuracion);
 
+
     //  Funciones
+
     /**
-     * pre: -
-     * pos: -
+     * pre: la matriz debe estar definida y no debe estar vacia.
+     * pos: por medio de consola se ingresan las celulas que empezaran el juego como vivas.
      */
     void definirCelulasVivas();
+
     /**
      * pre: -
      * pos: -
      */
     void contabilizarCasos(Estado aux, Celda *celdaCentro);
+
     /**
      * pre: -
      * pos: -
      */
     void contadorCelulasVecinas(unsigned int fila, unsigned int columna, unsigned int pagina, Tablero *temp);
+
     /**
      * pre: -
      * pos: -
      */
-    //void operator=(Tablero nuevoTablero);
     unsigned int numeroAleatorio(unsigned int maximo);
+
+    /**
+     * pre: -
+     * pos: -
+     */
     void resolverTurno();
+
     /**
      * pre: -
      * pos: -
      */
     void imprimirTablero();
+
     /**
     * pre: -
     * pos: -
     */
     void devolverTablero(unsigned int i, unsigned int j, unsigned int k);
+
+
+    //  Condiciones
+
+    /**
+    * pre: -
+    * pos: -
+    */
+    bool Tablero::matrizVacia();
 };
 
 #endif /* TABLEROH */

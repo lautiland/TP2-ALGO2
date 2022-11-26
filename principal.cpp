@@ -1,5 +1,6 @@
 #include <iostream>
 #include "principal.h"
+
 using namespace std;
 
 void bienvenida()
@@ -52,24 +53,17 @@ ModoDeJuego configurar()
     return configuracion;
 }
 
-void eliminarArchivosBitmap(Tablero *partida)
-{
-    for (unsigned int i = 0; i < partida->getAlto(); i++)
-    {
-        char nombre[] = {'p', 'a', 'g', 'i', 'n', 'a', '_', char(48 + (i % 100 / 10)), char(48 + (i % 10 / 1)), '.', 'b', 'm', 'p', '\0'};
-        const char *pagina = &nombre[0];
-        remove(pagina);
-    }
-}
-
 AccionTurno preguntarTurno(Tablero *partida)
 {
+    if (partida == NULL){
+        throw "partida no puede ser nulo";
+    }
+
     int respuesta;
     cout << "Indique la accion deseada para el siguiente turno: " << endl;
     cout << "1: Continuar el juego." << endl;
     cout << "2: Reiniciar la partida." << endl;
-    cout << "3: Terminar el juego." << endl
-         << endl;
+    cout << "3: Terminar el juego." << endl << endl;
     cin >> respuesta;
     cout << endl;
     switch (respuesta)
@@ -77,44 +71,54 @@ AccionTurno preguntarTurno(Tablero *partida)
     case 1:
         partida->getTurno()->siguienteTurno();
         return continuar;
+
         break;
     case 2:
         eliminarArchivosBitmap(partida);
         partida->~Tablero();
         return reiniciar;
+
         break;
     case 3:
         eliminarArchivosBitmap(partida);
         partida->~Tablero();
         return terminar;
-        break;
 
+        break;
     default:
         return preguntarTurno(partida);
+
         break;
     }
-};
+}
 
-int imagenesBitmap(Tablero *tablero)
+int generarArchivosBitmap(Tablero *partida)
 {
+    if (partida == NULL){
+        throw "partida no puede ser nulo";
+    }
+    if (partida->tableroVacio()){
+        throw "partida no puede estar vacia";
+    }
+
     unsigned int bits = 32;
-    for (unsigned int i = 0; i < tablero->getAlto(); i++)
+    for (unsigned int i = 0; i < partida->getAlto(); i++)
     {
         BMP imagen;
-        imagen.SetSize(tablero->getAncho() * bits, tablero->getLargo() * bits);
+        imagen.SetSize(partida->getAncho() * bits, partida->getLargo() * bits);
         imagen.SetBitDepth(8);
 
-        for (unsigned int j = 0; j < tablero->getAncho(); j++)
+        for (unsigned int j = 0; j < partida->getAncho(); j++)
         {
-            for (unsigned int k = 0; k < tablero->getLargo(); k++)
+            for (unsigned int k = 0; k < partida->getLargo(); k++)
             {
                 for (unsigned int l = 0; l < 32; l++)
                 {
                     for (unsigned int m = 0; m < 32; m++)
                     {
-                        imagen((j * bits) + l, (k * bits) + m)->Red = tablero->getTablero()->obtener(i + 1)->obtener(j + 1)->obtener(k + 1)->getCelula()->getGen1();
-                        imagen((j * bits) + l, (k * bits) + m)->Green = tablero->getTablero()->obtener(i + 1)->obtener(j + 1)->obtener(k + 1)->getCelula()->getGen3();
-                        imagen((j * bits) + l, (k * bits) + m)->Blue = tablero->getTablero()->obtener(i + 1)->obtener(j + 1)->obtener(k + 1)->getCelula()->getGen2();
+                        imagen((j * bits) + l, (k * bits) + m)->Red = partida->getTablero()->obtener(i + 1)->obtener(j + 1)->obtener(k + 1)->getCelula()->getGen1();
+                        imagen((j * bits) + l, (k * bits) + m)->Green = partida->getTablero()->obtener(i + 1)->obtener(j + 1)->obtener(k + 1)->getCelula()->getGen3();
+                        imagen((j * bits) + l, (k * bits) + m)->Blue = partida->getTablero()->obtener(i + 1)->obtener(j + 1)->obtener(k + 1)->getCelula()->getGen2();
                     }
                 }
             }
@@ -123,10 +127,27 @@ int imagenesBitmap(Tablero *tablero)
         const char *pagina = &nombre[0];
 
         imagen.WriteToFile(pagina);
-    };
+    }
 
     return 0;
-};
+}
+
+void eliminarArchivosBitmap(Tablero *partida)
+{   
+    if (partida == NULL){
+        throw "partida no puede ser nulo";
+    }
+    if (partida->tableroVacio()){
+        throw "partida no puede estar vacia";
+    }
+    
+    for (unsigned int i = 0; i < partida->getAlto(); i++)
+    {
+        char nombre[] = {'p', 'a', 'g', 'i', 'n', 'a', '_', char(48 + (i % 100 / 10)), char(48 + (i % 10 / 1)), '.', 'b', 'm', 'p', '\0'};
+        const char *pagina = &nombre[0];
+        remove(pagina);
+    }
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -142,7 +163,7 @@ int main()
 
         partida->definirCelulasVivas();
 
-        imagenesBitmap(partida);
+        generarArchivosBitmap(partida);
         partida->imprimirTablero();
 
         partida->getTurno()->imprimirTurno();
@@ -152,7 +173,7 @@ int main()
         {
 
             partida->resolverTurno();
-            imagenesBitmap(partida);
+            generarArchivosBitmap(partida);
             partida->imprimirTablero();
             partida->getTurno()->imprimirTurno();
             sigTurno = preguntarTurno(partida);
