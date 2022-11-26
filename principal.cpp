@@ -165,6 +165,7 @@ int main()
 
         generarArchivosBitmap(partida);
         partida->imprimirTablero();
+        partida->getTurno()->imprimirTurno();
 
         partida->getTurno()->imprimirTurno();
         sigTurno = preguntarTurno(partida);
