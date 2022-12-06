@@ -97,7 +97,7 @@ int generarArchivosBitmap(Tablero *partida)
     if (partida == NULL){
         throw "partida no puede ser nulo";
     }
-    if (partida->tableroVacio()){
+    if (partida->matrizVacia()){
         throw "partida no puede estar vacia";
     }
 
@@ -137,7 +137,7 @@ void eliminarArchivosBitmap(Tablero *partida)
     if (partida == NULL){
         throw "partida no puede ser nulo";
     }
-    if (partida->tableroVacio()){
+    if (partida->matrizVacia()){
         throw "partida no puede estar vacia";
     }
     
@@ -167,7 +167,6 @@ int main()
         partida->imprimirTablero();
         partida->getTurno()->imprimirTurno();
 
-        partida->getTurno()->imprimirTurno();
         sigTurno = preguntarTurno(partida);
 
         while (sigTurno == continuar)

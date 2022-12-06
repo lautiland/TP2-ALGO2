@@ -5,8 +5,8 @@
 #include "EasyBMP.h"
 
 //SOLO EN VISUAL
-#include "tablero.cpp"
-#include "EasyBMP.cpp"
+//#include "tablero.cpp"
+//#include "EasyBMP.cpp"
 
 enum AccionTurno{
 	continuar,

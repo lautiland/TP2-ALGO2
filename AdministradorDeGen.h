@@ -4,7 +4,7 @@
 #include "Gen.h"
 
 //SOLO EN VISUAL
-#include "gen.cpp"
+//#include "gen.cpp"
 
 class AdministradorDeGen
 {

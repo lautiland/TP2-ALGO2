@@ -1,4 +1,5 @@
 #include "celda.h"
+
 //  Constructores y destructores
 
 Celda::Celda(unsigned int posicionX, unsigned int posicionY, unsigned int posicionZ, Tipo tipo)
@@ -9,6 +10,13 @@ Celda::Celda(unsigned int posicionX, unsigned int posicionY, unsigned int posici
     this->setTipo(tipo);
 
     this->celula = new Celula(muerto,0,0,0); // es por tema de incluciones de archivos, en visual no anda
+}
+
+Celda::~Celda(){
+    if (this->celula == NULL){
+        throw "la celula tiene que estar definida";
+    }
+    delete this->celula;
 }
 
 //  Getters
@@ -54,15 +62,16 @@ void Celda::setTipo(Tipo nuevoTipo = estandar)
 }
 
 //  Funciones
+
 void Celda::actualizarEstadoCelula(unsigned int celulasVecinas, unsigned int x1, unsigned int x2, unsigned int x3, Lista<Celda *> *listaVecinasVivas)
 {
-	/*
+	
     if (getTipo() == procreadora)
     {
         x1 = x1 - 1;
-    };*/
+    }
 
-    if ((celulasVecinas == x1) && (getCelula()->getEstado() == muerto)/* && (getTipo() != contaminada)*/)
+    if ((celulasVecinas == x1) && (getCelula()->getEstado() == muerto) && (getTipo() != contaminada))
     {
         getCelula()->setEstado(vivo);
         actualizaGenesCelula(listaVecinasVivas);

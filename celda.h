@@ -5,7 +5,7 @@
 #include "lista.h"
 
 // SOLO EN VISUAL
-#include "celula.cpp"
+//#include "celula.cpp"
 
 enum Tipo
 {
@@ -27,15 +27,21 @@ private:
     Celula *celula;
 
 public:
+
     //  Constructores y destructor
 
     /*
      * pre: -
      * pos: La celda queda habilitada para controlar el acceso de posicionX, posicionY, posicionZ y el Tipo.
      */
-    Celda(Celda* nuevaCelda);
     Celda(unsigned int posicionX, unsigned int posicionY, unsigned int posicionZ, Tipo tipo);
-    // falta hacer el destructor
+
+    /**
+     * pre: la celula debe estar definida.
+     * pos: destruye la memoria reservada.
+     */
+    ~Celda();
+
 
     //  Getters
 
@@ -67,17 +73,17 @@ public:
 
     //  Setters
     /**
-     * pre: nuevaPosicionX debe ser mayor a 0.
+     * pre: -
      * pos: Actualiza el numero de la posicion de la Fila.
      */
     void setPosicionX(unsigned int nuevaPosicionX);
     /**
-     * pre: nuevaPosicionY debe ser mayor a 0.
+     * pre: -
      * pos: Actualiza el numero de la posicion de la Columna.
      */
     void setPosicionY(unsigned int nuevaPosicionY);
     /**
-     * pre: nuevaPosicionZ debe ser mayor a 0.
+     * pre: -
      * pos: Actualiza el numero de la posicion de la Pagina.
      */
     void setPosicionZ(unsigned int nuevaPosicionZ);
@@ -92,12 +98,9 @@ public:
      */
     void setCelula(Celula nuevaCelula);
 
+
     //  Funciones
-    /**
-     * pre: -
-     * pos: iguala dos celdas (copia los datos de una Celda con otra pasada por parametro)
-     */
-    //void operator=(Celda nuevaCelda); // esta funcion permite igualar dos celdas y que se copien sus datos
+
     /**
      * pre: -
      * pos: -

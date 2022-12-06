@@ -13,6 +13,12 @@ Celula::Celula(Estado estado = muerto, unsigned int gen1 = 0, unsigned int gen2 
 
 }
 
+Celula::~Celula(){
+    delete this->gen1;
+    delete this->gen2;
+    delete this->gen3;
+}
+
 //  Getters
 
 Estado Celula::getEstado(){

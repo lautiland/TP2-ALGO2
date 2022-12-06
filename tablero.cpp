@@ -7,7 +7,7 @@ using namespace std;
 
 Tablero::Tablero(ModoDeJuego configuracion)
 {
-    if (configuracion == NULL){
+    if ((configuracion != manual) && (configuracion != configuracion1) && (configuracion != configuracion2) && (configuracion != configuracion3)){
         throw "configuracion no puede ser nula";
     }
 
@@ -31,6 +31,13 @@ Tablero::Tablero(ModoDeJuego configuracion)
             pagina->agregar(columna); // agregar la columna a la página
         }
         this->matriz->agregar(pagina); // agrega la página al tablero
+    }
+    for (unsigned int i = 0; i < numeroAleatorio((int(getAlto()) * int(getLargo()) * int(getAncho()) * 100 / 5)); i++)
+    {
+        unsigned int x = numeroAleatorio(getAncho());
+        unsigned int y = numeroAleatorio(getLargo());
+        unsigned int z = numeroAleatorio(getAlto());
+        getTablero()->obtener(x)->obtener(y)->obtener(z)->setTipo(Tipo(numeroAleatorio(6)));
     }
     this->turno = new Turno();
 }
@@ -97,6 +104,12 @@ Tablero::~Tablero()
         temp->iniciarCursor();
         while (temp->avanzarCursor())
         {
+            Lista<Celda *> *temp2 = temp->obtenerCursor();
+            temp2->iniciarCursor();
+            while (temp2->avanzarCursor()){
+                temp2->obtenerCursor()->getCelula()->~Celula();
+                temp2->obtenerCursor()->~Celda();
+            }
             delete temp->obtenerCursor();
         }
         delete temp;
@@ -174,7 +187,7 @@ Turno* Tablero::getTurno()
 
 void Tablero::setConfiguracion(ModoDeJuego configuracion)
 {
-    if (configuracion == NULL){
+    if ((configuracion != manual) && (configuracion != configuracion1) && (configuracion != configuracion2) && (configuracion != configuracion3)){
         throw "configuracion no puede ser nulo";
     }
 
@@ -397,16 +410,15 @@ void Tablero::definirCelulasVivas()
 
         do
         {
-            cout << "Desea utilizar otro metodo para ingresar celulas? s/n." << endl
-                 << endl;
+            cout << "Desea utilizar otro metodo para ingresar celulas? s/n." << endl << endl;
             cin >> respuesta;
             cout << endl;
+
         } while ((respuesta != 's') && (respuesta != 'n') && (respuesta != 'S') && (respuesta != 'N'));
 
     } while ((respuesta == 's') || (respuesta == 'S'));
 
-    cout << "Las celulas fueron ingresadas con exito." << endl
-         << endl;
+    cout << "Las celulas fueron ingresadas con exito." << endl << endl;
 }
 
 void Tablero::contadorCelulasVecinas(unsigned int pagina, unsigned int columna, unsigned int fila, Tablero *temp)
@@ -476,7 +488,8 @@ void Tablero::contadorCelulasVecinas(unsigned int pagina, unsigned int columna, 
                     if (getTablero()->obtener(vecinaZ)->obtener(vecinaY)->obtener(vecinaX)->getCelula()->getEstado() == vivo)
                     {
                         vecinasVivas++;
-                         if(listaVecinasVivas->contarElementos() < getX1())
+
+                        if (listaVecinasVivas->contarElementos() < getX1())
                         {
                             listaVecinasVivas->agregar(getTablero()->obtener(vecinaZ)->obtener(vecinaY)->obtener(vecinaX));
                         }
@@ -487,7 +500,9 @@ void Tablero::contadorCelulasVecinas(unsigned int pagina, unsigned int columna, 
     }
 
     temp->getTablero()->obtener(pagina)->obtener(columna)->obtener(fila)->actualizarEstadoCelula(vecinasVivas, getX1(), getX2(), getX3(), listaVecinasVivas);
+    
     Estado aux = temp->getTablero()->obtener(pagina)->obtener(columna)->obtener(fila)->getCelula()->getEstado();
+    
     temp->contabilizarCasos(aux, celdaCentro);
     
     listaVecinasVivas->iniciarCursor();
@@ -500,6 +515,13 @@ void Tablero::contadorCelulasVecinas(unsigned int pagina, unsigned int columna, 
 
 void Tablero::contabilizarCasos(Estado aux, Celda *celdaCentro)
 {
+    if ((aux != vivo) && (aux != muerto)){
+        throw "aux no puede ser nulo";
+    }
+    if (celdaCentro == NULL){
+        throw "celdaCentro debe no ser nulo";
+    }
+
     if ((celdaCentro->getCelula()->getEstado() != aux))
     {
         if (aux == muerto)
@@ -516,16 +538,27 @@ void Tablero::contabilizarCasos(Estado aux, Celda *celdaCentro)
 unsigned int Tablero::numeroAleatorio(unsigned int maximo)
 {
     srand(time(NULL));
+
     return rand() % maximo + 1;
 };
 
 void Tablero::devolverTablero(unsigned int x, unsigned int y, unsigned int z)
 {
-    if (getTablero()->obtener(z + 1)->obtener(y + 1)->obtener(x + 1)->getCelula()->getEstado() == vivo)
+    if ((getLargo() < x)){
+        throw "la celula solicitada no existe";
+    }
+    if ((getAncho() < y)){
+        throw "la celula solicitada no existe";
+    }
+    if ((getAlto() < z)){
+        throw "la celula solicitada no existe";
+    }
+
+    if (getTablero()->obtener(z)->obtener(y)->obtener(x)->getCelula()->getEstado() == vivo)
     {
         cout << 1 << " ";
     }
-    else if (getTablero()->obtener(z + 1)->obtener(y + 1)->obtener(x + 1)->getCelula()->getEstado() == muerto)
+    else if (getTablero()->obtener(z)->obtener(y)->obtener(x)->getCelula()->getEstado() == muerto)
     {
         cout << 0 << " ";
     }
@@ -533,6 +566,13 @@ void Tablero::devolverTablero(unsigned int x, unsigned int y, unsigned int z)
 
 void Tablero::resolverTurno()
 {
+    if (this->matriz == NULL){
+        throw "la matriz debe estar definida";
+    }
+    if (this->matrizVacia()){
+        throw "la matriz no debe estar vacia";
+    }
+
 	Tablero *temp = new Tablero(this);
 	
     for (unsigned int i = 0; i < temp->getAlto(); i++)
@@ -546,11 +586,8 @@ void Tablero::resolverTurno()
                 getTurno()->setPromedioNacidas(getTurno()->getRenacidasEnTurno());
 
                 getTurno()->setPromedioMuertas(getTurno()->getMuertasEnTurno());
-
             }
-
         }
-
     }
 
     getTurno()->comparacionDeTurnos(temp->getTurno());
@@ -574,18 +611,25 @@ void Tablero::resolverTurno()
 
 void Tablero::imprimirTablero()
 {
+    if (this->matriz == NULL){
+        throw "la matriz debe estar definida";
+    }
+    if (this->matrizVacia()){
+        throw "la matriz no debe estar vacia";
+    }
 
     for (unsigned int z = 0; z < getAlto(); z++)
     {
-        cout << "Pagina numero " << z + 1 << ":" << endl
-             << endl;
-        for (unsigned int y = 0; y < getAncho(); y++)
+        cout << "Pagina numero " << z + 1 << ":" << endl << endl;
+
+        for (unsigned int x = 0; x < getLargo(); x++)
         {
             cout << "     ";
-            for (unsigned int x = 0; x < getLargo(); x++)
+
+            for (unsigned int y = 0; y < getAncho(); y++)
             {
-                devolverTablero(x, y, z);
-            };
+                devolverTablero(x+1, y+1, z+1);
+            }
             cout << endl;
         }
         cout << endl;

@@ -7,8 +7,8 @@
 #include <ctime>
 
 // SOLO EN VISUAL
-#include "celda.cpp"
-#include "turno.cpp"
+//#include "celda.cpp"
+//#include "turno.cpp"
 
 enum ModoDeJuego
 {
@@ -62,37 +62,37 @@ public:
     Lista<Lista<Lista<Celda *> *> *> *getTablero();
 
     /**
-     * pre: X1 debe estar definido.
+     * pre: -
      * pos: devuelve el numero de celulas vecinas necesarias para que una celula nazca.
      */
     unsigned int getX1();
 
     /**
-     * pre: X2 debe estar definido.
+     * pre: -
      * pos: devuelve el numero de celulas vecinas vivas necesarias para que muera por soledad.
      */
     unsigned int getX2();
 
     /**
-     * pre: X3 debe estar definido.
+     * pre: -
      * pos: devuelve el numero de celulas vecinas vivas necesarias para que muera por sobrepoblacion.
      */
     unsigned int getX3();
 
     /**
-     * pre: alto debe estar definido.
+     * pre: -
      * pos: devuelve el numero de paginas del tablero.
      */
     unsigned int getAlto();
 
     /**
-     * pre: ancho debe estar definido.
+     * pre: -
      * pos: devuelve el numero de columnas del tablero.
      */
     unsigned int getAncho();
 
     /**
-     * pre: largo debe estar definido.
+     * pre: -
      * pos: devuelve el numero de filas del tablero.
      */
     unsigned int getLargo();
@@ -107,8 +107,8 @@ public:
     //  Setters
 
     /**
-     * pre: configuracion no debe ser nulo
-     * pos: configura los distintos modos de juego
+     * pre: configuracion no debe ser nulo.
+     * pos: configura los distintos modos de juego.
      */
     void setConfiguracion(ModoDeJuego configuracion);
 
@@ -122,38 +122,39 @@ public:
     void definirCelulasVivas();
 
     /**
-     * pre: -
-     * pos: -
+     * pre: aux y celdaCentro no deben ser nulos.
+     * pos: define los nacimientos y muertes del turno.
      */
     void contabilizarCasos(Estado aux, Celda *celdaCentro);
 
     /**
-     * pre: -
-     * pos: -
-     */
-    void contadorCelulasVecinas(unsigned int fila, unsigned int columna, unsigned int pagina, Tablero *temp);
-
-    /**
-     * pre: -
-     * pos: -
+     * pre: maximo debe ser positivo.
+     * pos: devuelve un numero random positivo con un maximo.
      */
     unsigned int numeroAleatorio(unsigned int maximo);
 
     /**
-     * pre: -
-     * pos: -
+     * pre: fila, columna y pagina deben estar entre 0 y sus respectivos maximos.
+     * pos: analiza y cuenta la celulas vecinas que estan vivas respecto de una celula central. tambien actualizara los estados
+     * de las celulas dentro de un tablero temporario.
+     */
+    void contadorCelulasVecinas(unsigned int fila, unsigned int columna, unsigned int pagina, Tablero *temp);
+
+    /**
+     * pre: el tablero debe estar inicializado y la matriz no debe estar vacia.
+     * pos: realiza la accion del turno, recorriendo toda la matriz.
      */
     void resolverTurno();
 
     /**
-     * pre: -
-     * pos: -
+     * pre: la matriz tiene que estar inicializada y no vacia.
+     * pos: muestra en consola el tablero, pagina por pagina.
      */
     void imprimirTablero();
 
     /**
-    * pre: -
-    * pos: -
+    * pre: i, j y k deben ser mayores a 0 y menores a sus respectivos maximos.
+    * pos: imprime un valor depende del estado de la celula en la posicion ingresada.
     */
     void devolverTablero(unsigned int i, unsigned int j, unsigned int k);
 
@@ -162,9 +163,9 @@ public:
 
     /**
     * pre: -
-    * pos: -
+    * pos: devuelve true si la matriz del tablero esta vacia y false si no lo esta.
     */
-    bool Tablero::matrizVacia();
+    bool matrizVacia();
 };
 
 #endif /* TABLEROH */
