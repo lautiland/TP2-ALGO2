@@ -5,7 +5,7 @@
 #include "lista.h"
 
 // SOLO EN VISUAL
-//#include "celula.cpp"
+#include "celula.cpp"
 
 enum Tipo
 {

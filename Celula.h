@@ -4,7 +4,7 @@
 #include "AdministradorDeGen.h"
 
 //SOLO EN VISUAL
-//#include "administradorDeGen.cpp"
+#include "administradorDeGen.cpp"
 
 enum Estado{
     vivo = 0,

@@ -32,7 +32,7 @@ Tablero::Tablero(ModoDeJuego configuracion)
         }
         this->matriz->agregar(pagina); // agrega la página al tablero
     }
-    for (unsigned int i = 0; i < numeroAleatorio((int(getAlto()) * int(getLargo()) * int(getAncho()) * 100 / 5)); i++)
+    for (unsigned int i = 0; i < numeroAleatorio((int(getAlto()) * int(getLargo()) * int(getAncho()) * 5 / 100)); i++)
     {
         unsigned int x = numeroAleatorio(getAncho());
         unsigned int y = numeroAleatorio(getLargo());
@@ -262,11 +262,12 @@ void Tablero::definirCelulasVivas()
         {
             cout << "Elija el metodo para ingresar celulas vivas: " << endl;
             cout << "1: Ingresar individualmente." << endl;
-            cout << "2: Ingresar por rango." << endl << endl;
+            cout << "2: Ingresar por rango." << endl;
+            cout << "3: Ingresar celulas aleatoriamente."<< endl << endl;
             cin >> metodo;
             cout << endl;
 
-        } while ((metodo != 1) && (metodo != 2));
+        } while ((metodo != 1) && (metodo != 2) && (metodo != 3));
         if (metodo == 1)
         {
             char seguir;
@@ -407,14 +408,38 @@ void Tablero::definirCelulasVivas()
 
             } while ((seguir == 's') || (seguir == 'S'));
         }
-
-        do
+        else if (metodo == 3)
         {
-            cout << "Desea utilizar otro metodo para ingresar celulas? s/n." << endl << endl;
-            cin >> respuesta;
+            unsigned int porcentaje;
+            cout << "Ingrese el porcentaje en numero de la cantidad de celulas vivas teniendo en cuenta que puede llegar a tardar mucho si hay muchas celulas en el tablero y el porcentaje es alto." << endl << endl;
+            cin >> porcentaje;
             cout << endl;
+            double total = double(getAlto() * getLargo() * getAncho());
+            double ratio = double(porcentaje) / double(100);
+            cout << "Se ingresara un total de " << unsigned(int(total * ratio)) << " celulas" << endl;
+            for (unsigned int i = 0; i < unsigned(int(total * ratio)); i++){
+                cout << "Celula numero " << i+1 << " ingresada" << endl;
+                unsigned int x = numeroAleatorio(getAncho());
+                unsigned int y = numeroAleatorio(getLargo());
+                unsigned int z = numeroAleatorio(getAlto());
+                while (getTablero()->obtener(z)->obtener(y)->obtener(x)->getCelula()->getEstado() == vivo){
+                    x = numeroAleatorio(getAncho());
+                    y = numeroAleatorio(getLargo());
+                    z = numeroAleatorio(getAlto());
+                }
+                getTablero()->obtener(z)->obtener(y)->obtener(x)->getCelula()->setEstado(vivo);
+                getTurno()->sumarViva();
+            } 
+        }else{
+            do
+            {
+                cout << "Desea utilizar otro metodo para ingresar celulas? s/n." << endl << endl;
+                cin >> respuesta;
+                cout << endl;
 
-        } while ((respuesta != 's') && (respuesta != 'n') && (respuesta != 'S') && (respuesta != 'N'));
+            } while ((respuesta != 's') && (respuesta != 'n') && (respuesta != 'S') && (respuesta != 'N'));
+        }
+
 
     } while ((respuesta == 's') || (respuesta == 'S'));
 

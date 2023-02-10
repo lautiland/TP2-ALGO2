@@ -7,8 +7,8 @@
 #include <ctime>
 
 // SOLO EN VISUAL
-//#include "celda.cpp"
-//#include "turno.cpp"
+#include "celda.cpp"
+#include "turno.cpp"
 
 enum ModoDeJuego
 {
